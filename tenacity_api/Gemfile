@@ -32,6 +32,13 @@ gem 'devise-jwt', '~> 0.5.8'
 
 gem 'responders', '~> 2.4.0'
 
+# Role management library with resource scoping.
+gem 'rolify', '~> 5.1.0'
+
+# Authorization library that sets up roles for who can/can't perform certain
+# actions.
+gem 'cancancan', '~> 2.0'
+
 # Rails app configuration using ENV and a centralised single YAML file at:
 # config/application.yml.
 gem 'figaro', '~> 1.1.1'
