@@ -37,12 +37,18 @@ module TenacityApi
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '/api/*',
-                 headers: %w[Authorization],
-                 methods: %w[get post options],
-                 expose: %w[Authorization],
-                 max_age: 600
+        resource '*',
+                 headers: :any,
+                 methods: %w[get post options]
       end
+      # allow do
+      #   origins '*'
+      #   resource '*',
+      #            headers: %w[Authorization],
+      #            methods: %w[get post options],
+      #            expose: %w[Authorization],
+      #            max_age: 600
+      # end
     end
   end
 end

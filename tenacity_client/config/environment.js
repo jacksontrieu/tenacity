@@ -2,6 +2,9 @@
 
 module.exports = function(environment) {
   let ENV = {
+    contentSecurityPolicy: {
+      'connect-src': "*"
+    },
     modulePrefix: 'tenacity-client',
     environment,
     rootURL: '/',
@@ -46,6 +49,24 @@ module.exports = function(environment) {
   if (environment === 'production') {
     // here you can enable a production-specific feature
   }
+
+  ENV['ember-simple-auth'] = {
+    routeAfterAuthentication: 'dashboard',
+    routeIfAlreadyAuthenticated: 'dashboard'
+  };
+
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: 'http://localhost:3000/login', // Server endpoint to send authenticate request
+    tokenPropertyName: 'token', // Key in server response that contains the access token
+    headers: {},
+    tokenDataPropertyName: 'tokenData', // Key in session to store token data
+    refreshAccessTokens: true, // Enables access token refreshing
+    tokenExpirationInvalidateSession: true, // Enables session invalidation on token expiration
+    serverTokenRefreshEndpoint: '/api/token-refresh/', // Server endpoint to send refresh request
+    refreshTokenPropertyName: 'refresh_token', // Key in server response that contains the refresh token
+    tokenExpireName: 'exp', // Field containing token expiration
+    refreshLeeway: 0 // Amount of time to send refresh request before token expiration
+  };
 
   return ENV;
 };
