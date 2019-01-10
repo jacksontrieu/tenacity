@@ -5,27 +5,6 @@ class ApplicationController < ActionController::API
 
   respond_to :json
 
-  def render_resource(resource)
-    if resource.errors.empty?
-      render json: resource
-    else
-      validation_error(resource)
-    end
-  end
-
-  def validation_error(resource)
-    render json: {
-      errors: [
-        {
-          status: '400',
-          title: 'Bad Request',
-          detail: resource.errors,
-          code: '100'
-        }
-      ]
-    }, status: :bad_request
-  end
-
   def current_user
     return devise_current_user
   end
@@ -34,8 +13,19 @@ class ApplicationController < ActionController::API
 
   def check_user_authenticated
     if current_user.nil?
-      render json: {}, status: :unauthorized
+      render_unauthorized
       return false
     end
+  end
+
+  def render_bad_request(message, code)
+    render json: {
+      message: message,
+      code: code
+    }, status: :bad_request
+  end
+
+  def render_unauthorized
+    render json: {}, status: :unauthorized
   end
 end

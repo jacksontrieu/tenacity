@@ -1,5 +1,19 @@
 class User::RegistrationsController < Devise::RegistrationsController
+  include CanCan::ControllerAdditions
+
   respond_to :json
+
+  before_action :check_user_authenticated, only: [:index]
+  # before_action :configure_sign_up_params, only: [:create]
+  # before_action :configure_account_update_params, only: [:update]
+
+  def index
+    return render_unauthorized unless can? :manage, :all_users
+
+    render json: {
+      users: []
+    }, status: :ok
+  end
 
   def create
     build_resource(sign_up_params)
@@ -7,8 +21,6 @@ class User::RegistrationsController < Devise::RegistrationsController
     resource.save
     render_resource(resource)
   end
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new

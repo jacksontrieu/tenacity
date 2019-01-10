@@ -11,4 +11,8 @@ Rails.application.routes.draw do
                sessions: 'user/sessions',
                registrations: 'user/registrations'
              }
+
+   devise_scope :user do
+    get 'user/list' => 'user/registrations#index'
+  end
 end
