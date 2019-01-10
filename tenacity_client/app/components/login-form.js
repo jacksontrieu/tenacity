@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
 
