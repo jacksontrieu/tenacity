@@ -65,7 +65,7 @@ module.exports = function(environment) {
     serverTokenRefreshEndpoint: '/api/token-refresh/', // Server endpoint to send refresh request
     refreshTokenPropertyName: 'refresh_token', // Key in server response that contains the refresh token
     tokenExpireName: 'exp', // Field containing token expiration
-    refreshLeeway: 0 // Amount of time to send refresh request before token expiration
+    refreshLeeway: 600 // Amount of time to send refresh request before token expiration
   };
 
   return ENV;

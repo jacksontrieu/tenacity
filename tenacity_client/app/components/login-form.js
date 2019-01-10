@@ -18,7 +18,7 @@ export default Component.extend({
           password: password
         }
       }
-      const authenticator = 'authenticator:token'; // or 'authenticator:jwt'
+      const authenticator = 'authenticator:token'; // or 'authenticator:jwt';
 
       this.get('session').authenticate(authenticator, credentials);
     }
