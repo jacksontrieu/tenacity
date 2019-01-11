@@ -1,5 +1,9 @@
 @import '../base/colors';
 
+body.application.index {
+  background: $dark-blue-grey;
+}
+
 .index-container {
   .rounded-container {
     box-sizing: border-box;
