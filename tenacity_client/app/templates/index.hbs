@@ -3,9 +3,12 @@
     {{#if this.showLogin}}
       {{login-form onGoBack="showChoices"}}
     {{else if this.showSignUp}}
-      {{signup-form onGoBack="showChoices"}}
+      {{signup-form errorMessage=signUpErrorMessage
+                    onGoBack="showChoices"
+                    onError="showSignUpError" }}
     {{else}}
-      {{authorization-choice onLoginClick="showLogin" onSignupClick="showSignUp"}}
+      {{authorization-choice onLoginClick="showLogin"
+                             onSignupClick="showSignUp"}}
     {{/if}}
   </div>
 </div>

@@ -20,6 +20,8 @@
   </form>
 
   {{#if errorMessage}}
-    {{errorMessage}}
+    <div class="login-error">
+      {{error-message errorMessage=errorMessage}}
+    </div>
   {{/if}}
 </div>

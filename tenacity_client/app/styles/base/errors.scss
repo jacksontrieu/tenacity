@@ -1,0 +1,13 @@
+@import "colors";
+
+.error-message-text {
+  color: $error-red;
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 12px;
+
+  i {
+    margin-right: 8px;
+  }
+}

@@ -24,6 +24,8 @@
   </form>
 
   {{#if errorMessage}}
-    {{errorMessage}}
+    <div class="signup-error">
+      {{error-message errorMessage=errorMessage}}
+    </div>
   {{/if}}
 </div>
