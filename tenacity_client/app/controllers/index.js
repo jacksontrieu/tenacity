@@ -1,0 +1,21 @@
+import Controller from '@ember/controller';
+
+export default Controller.extend({
+  showLogin: false,
+  showSignUp: true,
+
+  actions: {
+    showChoices() {
+      this.set('showLogin', false);
+      this.set('showSignUp', false);
+    },
+    showSignUp() {
+      this.set('showLogin', false);
+      this.set('showSignUp', true);
+    },
+    showLogin() {
+      this.set('showLogin', true);
+      this.set('showSignUp', false);
+    }
+  }
+});

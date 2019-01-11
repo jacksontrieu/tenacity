@@ -1,0 +1,19 @@
+.signup-form-component {
+  position: relative;
+  padding-bottom: 48px;
+
+  .back-icon {
+    left: 12px;
+    position: absolute;
+    top: 12px;
+  }
+
+  .signup-inputs {
+    margin: 0 40px 24px;
+  }
+
+  .signup-button {
+    display: block;
+    margin: 12px auto 0;
+  }
+}

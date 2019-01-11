@@ -4,23 +4,27 @@ class User::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
   before_action :check_user_authenticated, only: [:index]
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
   def index
     return render_unauthorized unless can? :manage, :all_users
 
+    query = ::Queries::Users::All.new
+
+    users = query.data.select(:id, :email, :first_name, :last_name, :phone)
+
     render json: {
-      users: []
+      users: users,
+      page_number: query.page_number,
+      page_size: query.page_size
     }, status: :ok
   end
 
-  def create
-    build_resource(sign_up_params)
 
-    resource.save
-    render_resource(resource)
-  end
+#https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-account-without-providing-a-password
+
+
 
   # GET /resource/sign_up
   # def new
@@ -56,17 +60,15 @@ class User::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: %w[first_name last_name phone])
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: %w[first_name last_name phone])
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

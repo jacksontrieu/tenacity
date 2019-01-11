@@ -1,0 +1,257 @@
+.styled-button {
+  background: $cta-primary;
+  border: 1px solid $cta-primary;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  height: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  width: 160px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:enabled {
+    background: $cta-primary-hover;
+    border-color: $cta-primary-hover;
+
+    &[data-type="secondary"] {
+      background: #fff;
+      border-color: $control-border-hover;
+      color: $control-placeholder-label-hover;
+    }
+
+    &[data-type="destructive"] {
+      background: #fff;
+      border-color: $cancel-link-hover;
+      color: $cancel-link-hover;
+    }
+
+    &[data-type="confirmation"] {
+      background: $green-hover;
+      border-color: $green-hover;
+    }
+  }
+
+  &:active:enabled {
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15) inset;
+  }
+
+  &:focus {
+    outline-color: $cta-primary-hover;
+
+    &[data-type="secondary"] {
+      outline-color: $control-border-hover;
+    }
+
+    &[data-type="destructive"] {
+      outline-color: $cancel-link-hover;
+    }
+
+    &[data-type="confirmation"] {
+      outline-color: $green-hover;
+    }
+  }
+
+  // So that <a> controls will be positioned like buttons.
+  @at-root {
+    a#{&} {
+      display: inline-block;
+      line-height: 38px;
+      text-align: center;
+
+      &:visited,
+      &:hover,
+      &:active,
+      &:focus {
+        color: #fff;
+      }
+
+      &[data-type="secondary"] {
+        color: $control-placeholder-label;
+
+        &:visited,
+        &:hover,
+        &:active,
+        &:focus {
+          color: $control-placeholder-label;
+        }
+      }
+
+      &[data-type="destructive"] {
+        color: $cancel-link;
+
+        &:visited,
+        &:hover,
+        &:active,
+        &:focus {
+          color: $cancel-link;
+        }
+      }
+
+      &[data-type="confirmation"] {
+        background: $green;
+
+        &:visited,
+        &:hover,
+        &:active,
+        &:focus {
+          background: $green-hover;
+        }
+      }
+    }
+  }
+
+  &[data-width="thin"] {
+    width: 120px;
+
+    &[data-auto-width] {
+      max-width: 120px;
+      width: auto;
+    }
+  }
+
+  &[data-width="wide"] {
+    width: 180px;
+
+    &[data-auto-width] {
+      max-width: 180px;
+      width: auto;
+    }
+  }
+
+  &[data-width="wider"] {
+    width: 200px;
+
+    &[data-auto-width] {
+      max-width: 200px;
+      width: auto;
+    }
+  }
+
+  &[data-width="extra-wide"] {
+    width: 230px;
+
+    &[data-auto-width] {
+      max-width: 230px;
+      width: auto;
+    }
+  }
+
+  &[data-type="secondary"] {
+    background: #fff;
+    border-color: $control-border;
+    color: $text-grey;
+  }
+
+  &[data-type="destructive"] {
+    background: #fff;
+    border-color: $cancel-link;
+    color: $cancel-link;
+  }
+
+  &[data-type="confirmation"] {
+    background: $green;
+    border-color: $green;
+    color: #fff;
+  }
+
+  &[data-size="small"] {
+    font-size: 11px;
+    height: 32px;
+  }
+
+  i {
+    margin-right: 10px;
+  }
+}
+
+.icon-button {
+  background: #fff;
+  border: 1px solid $control-border;
+  border-radius: 20px;
+  color: $control-placeholder-label;
+  cursor: pointer;
+  height: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  width: 40px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:enabled {
+    border-color: $control-border-hover;
+    color: $control-placeholder-label-hover;
+
+    &[data-type="destructive"] {
+      background: #fff;
+      border-color: $cancel-link-hover;
+      color: $cancel-link-hover;
+    }
+  }
+
+  &:active:enabled {
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15) inset;
+  }
+
+  &:focus {
+    outline-color: $control-border-hover;
+
+    &[data-type="destructive"] {
+      outline-color: $cancel-link-hover;
+    }
+  }
+
+  // So that <a> controls will be positioned like buttons.
+  @at-root {
+    a#{&} {
+      display: inline-block;
+    }
+  }
+
+  &[data-size="smaller"] {
+    height: 24px;
+    font-size: 10px;
+    width: 24px;
+  }
+
+  &[data-size="small"] {
+    height: 32px;
+    font-size: 11px;
+    width: 32px;
+  }
+
+  &[data-size="large"] {
+    font-size: 18px;
+    height: 48px;
+    width: 48px;
+  }
+
+  &[data-size="extra-large"] {
+    font-size: 14px;
+    height: 64px;
+    width: 64px;
+  }
+
+  &[data-type="destructive"] {
+    border-color: $cancel-link;
+    color: $cancel-link;
+  }
+
+  &.no-border {
+    border: 0 !important;
+
+    &:active,
+    &:focus,,
+    &:hover {
+      border: 0;
+      box-shadow: none;
+    }
+  }
+}

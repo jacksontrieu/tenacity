@@ -1,13 +1,25 @@
-<form {{action "authenticate" on="submit"}}>
-  <label for="email">Email address</label>
-  {{input value=email placeholder=""}}
+<div class="login-form-component">
+  <button class="back-icon icon-button no-border no-outline"
+          type="button"
+          {{action "goBack"}}>
+    <i class="fas fa-arrow-left"></i>
+  </button>
 
-  <label for="password">Password</label>
-  {{input value=password type="password" placeholder=""}}
+  <img src="/assets/images/logo light coloured 500x242.png"
+       height="180"
+       alt="Tenacity logo"
+       class="logo-image">
 
-  <button type="submit">Login</button>
-</form>
+  <form {{action "authenticate" on="submit"}}>
+    <div class="login-inputs">
+      {{input value=email placeholder="Email address" class="form-control email-input" autocomplete="off"}}
+      {{input value=password type="password" placeholder="Password" class="form-control password-input" autocomplete="off"}}
+    </div>
 
-{{#if errorMessage}}
-  {{errorMessage}}
-{{/if}}
+    <button class="login-button styled-button" type="submit">Sign in</button>
+  </form>
+
+  {{#if errorMessage}}
+    {{errorMessage}}
+  {{/if}}
+</div>

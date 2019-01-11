@@ -1,0 +1,29 @@
+<div class="signup-form-component">
+  <button class="back-icon icon-button no-border no-outline"
+          type="button"
+          {{action "goBack"}}>
+    <i class="fas fa-arrow-left"></i>
+  </button>
+
+  <img src="/assets/images/logo light coloured 500x242.png"
+       height="180"
+       alt="Tenacity logo"
+       class="logo-image">
+
+  <form {{action "signup" on="submit"}}>
+    <div class="signup-inputs">
+      {{input value=email placeholder="Email address" class="form-control email-input" autocomplete="off" type="email" required="true"}}
+      {{input value=first_name placeholder="First name" class="form-control" autocomplete="off" required="true"}}
+      {{input value=last_name placeholder="Last name" class="form-control" autocomplete="off" required="true"}}
+      {{input value=phone placeholder="Phone" class="form-control" autocomplete="off" required="true"}}
+      {{input value=password type="password" placeholder="Password" class="form-control password-input" autocomplete="off" required="true"}}
+      {{input value=confirm_password type="password" placeholder="Confirm password" class="form-control password-input" autocomplete="off" required="true"}}
+    </div>
+
+    <button class="signup-button styled-button" type="submit">Sign up</button>
+  </form>
+
+  {{#if errorMessage}}
+    {{errorMessage}}
+  {{/if}}
+</div>

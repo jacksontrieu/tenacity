@@ -1,0 +1,19 @@
+.login-form-component {
+  position: relative;
+  padding-bottom: 48px;
+
+  .back-icon {
+    left: 12px;
+    position: absolute;
+    top: 12px;
+  }
+
+  .login-inputs {
+    margin: 0 40px 24px;
+  }
+
+  .login-button {
+    display: block;
+    margin: 12px auto 0;
+  }
+}

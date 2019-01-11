@@ -6,10 +6,6 @@ export default Component.extend({
 
   actions: {
     authenticate: function() {
-      // let { identification, password } = this.getProperties('username', 'password');
-      // return this.get('session').authenticate('authenticator:devise', identification, password).catch((reason) => {
-      //   this.set('errorMessage', reason.error);
-      // });
       const { email, password } = this.getProperties('email', 'password');
       const credentials = {
         user: {
@@ -17,9 +13,12 @@ export default Component.extend({
           password: password
         }
       }
-      const authenticator = 'authenticator:token'; // or 'authenticator:jwt';
+      const authenticator = 'authenticator:token';
 
       this.get('session').authenticate(authenticator, credentials);
+    },
+    goBack: function() {
+      this.sendAction('onGoBack');
     }
   }
 });

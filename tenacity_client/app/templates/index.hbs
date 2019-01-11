@@ -1,3 +1,11 @@
-<h2>Welcome to Ember</h2>
-
-{{#link-to "login"}}Login{{/link-to}}
+<div class="index-container">
+  <div class="rounded-container">
+    {{#if this.showLogin}}
+      {{login-form onGoBack="showChoices"}}
+    {{else if this.showSignUp}}
+      {{signup-form onGoBack="showChoices"}}
+    {{else}}
+      {{authorization-choice onLoginClick="showLogin" onSignupClick="showSignUp"}}
+    {{/if}}
+  </div>
+</div>

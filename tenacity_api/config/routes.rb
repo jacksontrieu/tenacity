@@ -5,7 +5,7 @@ Rails.application.routes.draw do
              path_names: {
                sign_in: 'login',
                sign_out: 'logout',
-               registration: 'signup'
+               registration: 'users'
              },
              controllers: {
                sessions: 'user/sessions',
@@ -13,6 +13,6 @@ Rails.application.routes.draw do
              }
 
    devise_scope :user do
-    get 'user/list' => 'user/registrations#index'
+    get 'users' => 'user/registrations#index'
   end
 end

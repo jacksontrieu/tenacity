@@ -39,6 +39,9 @@ gem 'rolify', '~> 5.1.0'
 # actions.
 gem 'cancancan', '~> 2.0'
 
+# Adds pagination methods to ActiveRecord.
+gem 'kaminari', '~> 1.1.1'
+
 # Rails app configuration using ENV and a centralised single YAML file at:
 # config/application.yml.
 gem 'figaro', '~> 1.1.1'

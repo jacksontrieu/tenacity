@@ -1,0 +1,14 @@
+@import '../base/colors';
+
+.index-container {
+  .rounded-container {
+    box-sizing: border-box;
+    margin: 32px auto;
+    width: 500px;
+  }
+
+  .logo-image {
+    display: block;
+    margin: 0 auto 24px;
+  }
+}
