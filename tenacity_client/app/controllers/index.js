@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   showLogin: false,
-  showSignUp: true,
+  showSignUp: false,
   signUpErrorMessage: '',
 
   actions: {
