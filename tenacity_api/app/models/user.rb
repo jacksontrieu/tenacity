@@ -9,6 +9,11 @@ class User < ApplicationRecord
 
   after_create :assign_default_role
 
+  def name
+    result = first_name.strip + ' ' + last_name.strip
+    return result.strip
+  end
+
   def assign_default_role
     self.add_role(:standard_user) if self.roles.blank?
   end

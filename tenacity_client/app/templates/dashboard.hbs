@@ -1,5 +1,15 @@
-<h2>Dashboard</h2>
+<div class="standard-container">
+  <h2 class="container-title">Dashboard</h2>
 
-<p>Peter Parker is Spider-Man</p>
+  <p>Hello <strong class="text-primary">{{this.model.name}}</strong>!</p>
 
-<a href="#" {{action "logout"}}>Logout</a>
+  <p>As a <strong class="text-primary">{{this.model.role}}</strong>, you have permissions to:</p>
+
+  <ul>
+    {{#each this.model.abilities as |ability|}}
+      <li>
+        <a href="{{ability.url}}">{{ability.displayText}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</div>

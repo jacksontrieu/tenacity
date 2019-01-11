@@ -14,6 +14,7 @@ class User::SessionsController < Devise::SessionsController
     render json: {
       id: resource.id,
       email: resource.email,
+      name: resource.name,
       token: current_token,
       role: resource.highest_role
     }

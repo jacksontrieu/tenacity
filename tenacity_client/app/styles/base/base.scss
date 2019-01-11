@@ -1,6 +1,17 @@
 @import 'colors';
 
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background: #fff;
+  background: $off-white;
   color: $text-grey;
+  margin: 0;
+  padding: 0;
+}
+
+.main-with-nav {
+  padding-top: 80px;
 }

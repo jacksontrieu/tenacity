@@ -1,1 +1,9 @@
-{{outlet}}
+{{#if showNavigation}}
+  {{navigation-menu}}
+
+  <div class="main-with-nav">
+    {{outlet}}
+  </div>
+{{else}}
+  {{outlet}}
+{{/if}}
