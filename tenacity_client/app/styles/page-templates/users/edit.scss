@@ -1,4 +1,17 @@
-.profile-template {
+@import '../../base/colors';
+
+.users-edit-template {
+  .template-title {
+    h2 {
+      display: inline-block;
+    }
+
+    h3 {
+      display: inline-block;
+      padding-left: 12px;
+    }
+  }
+
   p.section-header {
     margin-bottom: 24px;
   }

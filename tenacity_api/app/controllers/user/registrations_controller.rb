@@ -21,12 +21,17 @@ class User::RegistrationsController < Devise::RegistrationsController
     }, status: :ok
   end
 
-  def details
+  def show
+    user = User.find(params[:id])
+
+    return render_unauthorized unless can_access_user?(current_user, user)
+
     return render json: {
-      id: current_user.id,
-      first_name: current_user.first_name,
-      last_name: current_user.last_name,
-      phone: current_user.phone
+      id: user.id,
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      phone: user.phone
     }, status: :ok
   end
 
@@ -51,9 +56,18 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if params[:id].blank?
+      super
+    else
+      user = User.find(params[:id])
+      user.first_name = params['user']['first_name']
+      user.last_name = params['user']['last_name']
+      user.phone = params['user']['phone']
+      user.save
+      render json: {}, status: :ok
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -85,6 +99,13 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: %w[first_name last_name phone])
+  end
+
+  private
+
+  def can_access_user?(requesting_user, requested_user)
+    return requesting_user.id == requested_user.id ||
+           requesting_user.has_role?(:admin_user)
   end
 
   # The path used after sign up.

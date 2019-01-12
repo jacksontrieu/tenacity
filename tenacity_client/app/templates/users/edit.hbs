@@ -1,5 +1,8 @@
-<div class="standard-container profile-template">
-  <h2 class="container-title">Edit Profile</h2>
+<div class="standard-container users-edit-template">
+  <div class="template-title">
+    <h2 class="container-title">Edit User</h2>
+    <h3>({{model.email}})</h3>
+  </div>
 
   <form {{action "save" on="submit"}}>
     <p class="section-header">
@@ -32,20 +35,6 @@
             autocomplete="off"
             required="true"
             disabled=isSaving}}
-
-    <hr class="styled-separator">
-
-    <p class="section-header">
-      Change password
-    </p>
-
-    <button class="save-button styled-button"
-            type="button"
-            data-type="secondary"
-            {{action "goToChangePassword"}}
-            disabled={{isSaving}}>
-      Change password
-    </button>
 
     <hr class="styled-separator">
 

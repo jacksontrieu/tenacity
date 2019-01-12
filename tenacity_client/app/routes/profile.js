@@ -17,7 +17,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
       this.transitionTo('change-password');
     },
     save: function() {
-
       const data = {
         user: this.controller.get('model')
       };
@@ -58,6 +57,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
     }
   },
   model() {
-    return this.get('ajax').request(buildApiUrl(endpoints.get_user_details));
+    const authInfo = this.get('session').data;
+    return this.get('ajax').request(buildApiUrl(endpoints.get_user_details(authInfo.authenticated.id)));
   }
 });

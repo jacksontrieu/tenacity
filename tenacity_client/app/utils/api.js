@@ -1,11 +1,16 @@
 import ENV from 'tenacity-client/config/environment';
 
 export const endpoints = {
-  get_user_details: '/users/details',
+  get_user_details: function(id) {
+    return `/users/${id}`
+  },
   get_user_list: '/users',
   signup: '/users',
   update_profile: '/users',
-  update_password: '/password'
+  update_password: '/password',
+  update_user: function(id) {
+    return `/users/${id}`
+  }
 };
 
 export const buildApiUrl = (endpoint) => {

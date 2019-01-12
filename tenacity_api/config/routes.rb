@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_scope :user do
-    get 'users/details' => 'user/registrations#details'
+    get 'users/:id' => 'user/registrations#show'
     get 'users' => 'user/registrations#index'
+    patch 'users/:id' => 'user/registrations#update'
+    put 'users/:id' => 'user/registrations#update'
   end
 
   devise_for :users,
