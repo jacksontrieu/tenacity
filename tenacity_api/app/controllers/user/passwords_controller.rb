@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User::PasswordsController < Devise::PasswordsController
+  # before_action :check_user_authenticated
   # GET /resource/password/new
   # def new
   #   super
@@ -17,9 +18,34 @@ class User::PasswordsController < Devise::PasswordsController
   # end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
+  def update
+    unless current_user.valid_password?(params[:current_password])
+      return render json: {
+        success: false,
+        error: 'The current password was not valid, please try again.'
+      }, status: :bad_request
+    end
+
+    unless params[:new_password] == params[:confirm_password]
+      return render json: {
+        success: false,
+        error: "The new password doesn't match."
+      }, status: :bad_request
+    end
+
+    current_user.password = params[:new_password]
+
+    unless current_user.valid?
+      return render json: {
+        success: false,
+        error: current_user.errors.full_messages
+      }, status: :ok
+    end
+
+    current_user.save
+
+    render json: { success: true }, status: :ok
+  end
 
   # protected
 

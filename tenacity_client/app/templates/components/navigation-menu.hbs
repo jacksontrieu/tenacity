@@ -3,17 +3,17 @@
        class="nav-logo"
        alt="Tenacity logo"
        height="80">
-
   <nav class="navigation-menu">
     <ul>
-      <li>
-        <div>{{#link-to "dashboard"}}<i class="fas fa-tachometer-alt"></i>Dashboard{{/link-to}}</div>
+      <li class="nav-item">
+        <div>{{#link-to "dashboard" class="dashboard-nav-item"}}<span><i class="fas fa-tachometer-alt"></i>Dashboard</span>{{/link-to}}</div>
       </li>
-      <li>
-        <div>{{#link-to "dashboard"}}<i class="fas fa-user-circle"></i>Profile{{/link-to}}</div>
+      <li class="nav-item">
+        <div>{{#link-to "profile" class="profile-nav-item"}}<span><i class="fas fa-user-circle"></i>Profile</span>{{/link-to}}</div>
+      </li>
+      <li class="nav-item">
+        <div><a href="#" {{action "logout"}} class="logout-button logout-nav-item"><span><i class="fas fa-sign-out-alt"></i>Logout</span></a></div>
       </li>
     </ul>
   </nav>
-
-  <a href="#" {{action "logout"}}>Logout</a>
 </div>

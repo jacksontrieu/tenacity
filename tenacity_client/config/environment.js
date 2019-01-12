@@ -52,11 +52,15 @@ module.exports = function(environment) {
 
   ENV['ember-simple-auth'] = {
     routeAfterAuthentication: 'dashboard',
-    routeIfAlreadyAuthenticated: 'dashboard'
+    routeIfAlreadyAuthenticated: 'dashboard',
+    authenticationRoute: '/'
   };
 
+  ENV['api_host'] = 'localhost';
+  ENV['api_host_with_port'] = 'http://localhost:3000';
+
   ENV['ember-simple-auth-token'] = {
-    serverTokenEndpoint: 'http://localhost:3000/login', // Server endpoint to send authenticate request
+    serverTokenEndpoint: ENV['api_host_with_port'] + '/login', // Server endpoint to send authenticate request
     tokenPropertyName: 'token', // Key in server response that contains the access token
     headers: {},
     tokenDataPropertyName: 'tokenData', // Key in session to store token data

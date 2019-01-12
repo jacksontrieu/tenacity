@@ -1,3 +1,5 @@
+@import 'colors';
+
 .styled-button {
   background: $cta-primary;
   border: 1px solid $cta-primary;
@@ -62,6 +64,7 @@
       display: inline-block;
       line-height: 38px;
       text-align: center;
+      text-decoration: none;
 
       &:visited,
       &:hover,
@@ -254,4 +257,8 @@
       box-shadow: none;
     }
   }
+}
+
+.save-control {
+  height: 40px;
 }

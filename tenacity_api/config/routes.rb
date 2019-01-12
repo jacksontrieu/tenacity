@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_scope :user do
+    get 'users/details' => 'user/registrations#details'
+    get 'users' => 'user/registrations#index'
+  end
+
   devise_for :users,
              defaults: { format: :json },
              path: '',
@@ -9,10 +14,9 @@ Rails.application.routes.draw do
              },
              controllers: {
                sessions: 'user/sessions',
-               registrations: 'user/registrations'
+               registrations: 'user/registrations',
+               passwords: 'user/passwords'
              }
 
-   devise_scope :user do
-    get 'users' => 'user/registrations#index'
-  end
+  put 'password' => 'password#update'
 end

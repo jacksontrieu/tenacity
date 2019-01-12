@@ -1,0 +1,69 @@
+@import 'colors';
+
+.styled-link {
+  border: 0;
+  background-color: transparent;
+  color: $cta-primary;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  padding: 10px 20px 10px 0;
+  text-decoration: underline;
+
+  &:hover {
+    color: $cta-primary-hover;
+  }
+
+  &:active {
+    outline: 0;
+    transform: translate(1px, 1px);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.destructive {
+    color: $error-red;
+
+    &:hover {
+      color: $error-red-hover;
+
+      &[disabled] {
+        color: $error-red;
+      }
+    }
+  }
+
+  &.grey {
+    color: $text-grey;
+
+    &:hover {
+      color: $text-grey-hover;
+
+      &[disabled] {
+        color: $text-grey;
+      }
+    }
+  }
+
+  &.with-icon {
+    i {
+      margin-right: 6px;
+    }
+  }
+
+  &.smaller {
+    font-size: 11px;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    opacity: 0.6;
+
+    &:hover {
+      color: $cta-primary;
+    }
+  }
+}

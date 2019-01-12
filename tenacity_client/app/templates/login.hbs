@@ -1,0 +1,37 @@
+<div class="login-template">
+  <div class="rounded-container auth-container">
+    {{#link-to "index" class="back-icon icon-button no-border no-outline"}}
+      <i class="fas fa-arrow-left"></i>
+    {{/link-to}}
+
+    <img src="/assets/images/logo light coloured 500x242.png"
+         height="180"
+         alt="Tenacity logo"
+         class="logo-image">
+
+    <h4 class="text-center">Enter your login details</h4>
+
+    <form {{action "authenticate" on="submit"}}>
+      <div class="login-inputs">
+        {{input value=email
+                placeholder="Email address"
+                class="form-control email-input"
+                autocomplete="off"
+                disabled=isLoggingIn}}
+
+        {{input value=password
+                type="password"
+                placeholder="Password"
+                class="form-control password-input"
+                autocomplete="off"
+                disabled=isLoggingIn}}
+      </div>
+
+      <button class="login-button styled-button"
+              type="submit"
+              disabled={{isLoggingIn}}>
+        Sign in
+      </button>
+    </form>
+  </div>
+</div>

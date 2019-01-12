@@ -10,6 +10,10 @@ body {
   color: $text-grey;
   margin: 0;
   padding: 0;
+
+  &.waiting {
+    cursor: wait !important;
+  }
 }
 
 .main-with-nav {

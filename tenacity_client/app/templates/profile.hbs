@@ -1,0 +1,65 @@
+<div class="standard-container profile-template">
+  <h2 class="container-title">Edit Profile</h2>
+
+  <form {{action "save" on="submit"}}>
+    <p class="section-header">
+      Basic Settings
+    </p>
+
+    {{input value=(mut (get model "first_name"))
+            placeholder="First name"
+            class="form-control medium-length"
+            autocomplete="off"
+            required="true"
+            disabled=isSaving}}
+
+    {{input value=(mut (get model "last_name"))
+            placeholder="Last name"
+            class="form-control medium-length"
+            autocomplete="off"
+            required="true"
+            disabled=isSaving}}
+
+    {{input value=(mut (get model "phone"))
+            placeholder="Phone"
+            class="form-control medium-length"
+            autocomplete="off"
+            required="true"
+            disabled=isSaving}}
+
+    <hr class="styled-separator">
+
+    <p class="section-header">
+      Change password
+    </p>
+
+    <button class="save-button styled-button"
+            type="button"
+            data-type="secondary"
+            {{action "goToChangePassword"}}
+            disabled={{isSaving}}>
+      Change password
+    </button>
+
+    <hr class="styled-separator">
+
+    <div class="save-controls">
+      <div class="spinner-wrapper">
+          {{loading-spinner visible=isSaving}}
+      </div>
+
+      <button class="cancel-button styled-link destructive save-control"
+              type="button"
+              disabled={{isSaving}}
+              {{action "goBack"}}>
+        Cancel
+      </button>
+
+      <button class="save-button styled-button"
+              type="submit"
+              disabled={{isSaving}}>
+        Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -3,7 +3,7 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   respond_to :json
 
-  before_action :check_user_authenticated, only: [:index]
+  before_action :check_user_authenticated, only: %w[index detail]
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -18,6 +18,15 @@ class User::RegistrationsController < Devise::RegistrationsController
       users: users,
       page_number: query.page_number,
       page_size: query.page_size
+    }, status: :ok
+  end
+
+  def details
+    return render json: {
+      id: current_user.id,
+      first_name: current_user.first_name,
+      last_name: current_user.last_name,
+      phone: current_user.phone
     }, status: :ok
   end
 
@@ -61,6 +70,14 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+
+  # Modify the devise update user action to update a user's details without
+  # requiring a password. For password changes, we have created a separate
+  # password controller & page.
+  # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-account-without-providing-a-password
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: %w[first_name last_name phone])

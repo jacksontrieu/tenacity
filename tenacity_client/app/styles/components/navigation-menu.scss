@@ -1,5 +1,14 @@
 @import '../base/colors';
 
+body.dashboard a.dashboard-nav-item {
+  color: $cta-primary !important;
+}
+
+body.profile a.profile-nav-item,
+body.change-password a.profile-nav-item {
+  color: $cta-primary !important;
+}
+
 .navigation-menu-component {
   background: $dark-blue-grey;
   display: flex;
@@ -18,7 +27,6 @@
   .navigation-menu {
     ul {
       display: flex;
-      line-height: 72px;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -34,6 +42,7 @@
           color: #fff;
           display: block;
           height: 72px;
+          line-height: 103px;
           text-decoration: none;
 
           &:visited {

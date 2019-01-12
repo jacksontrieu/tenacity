@@ -8,7 +8,12 @@ const calculateAbilities = (role, router) => {
 
   result.push({
     displayText: 'Edit your profile',
-    url: router.generate('dashboard')
+    url: router.generate('profile')
+  });
+
+  result.push({
+    displayText: 'Change your password',
+    url: router.generate('change-password')
   });
 
   if (role == constants.roles.admin_user) {

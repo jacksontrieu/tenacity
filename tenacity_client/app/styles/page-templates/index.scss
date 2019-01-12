@@ -4,15 +4,20 @@ body.application.index {
   background: $dark-blue-grey;
 }
 
-.index-container {
-  .rounded-container {
-    box-sizing: border-box;
-    margin: 32px auto;
-    width: 500px;
-  }
+.index-template {
+  .auth-container {
+    padding-bottom: 32px;
 
-  .logo-image {
-    display: block;
-    margin: 0 auto 24px;
+    .logo-image {
+      display: block;
+      margin: 0 auto 24px;
+    }
+
+    .choice-buttons {
+      a {
+        display: block;
+        margin: 12px auto;
+      }
+    }
   }
 }

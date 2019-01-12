@@ -1,0 +1,36 @@
+@import '../base/colors';
+
+body.application.signup {
+  background: $dark-blue-grey;
+}
+
+.signup-template {
+  .auth-container {
+    position: relative;
+    padding-bottom: 48px;
+
+    .back-icon {
+      left: 24px;
+      position: absolute;
+      top: 24px;
+    }
+
+    .logo-image {
+      display: block;
+      margin: 0 auto 24px;
+    }
+
+    .signup-inputs {
+      margin: 0 40px 24px;
+    }
+
+    .signup-button {
+      display: block;
+      margin: 12px auto 0;
+    }
+
+    .signup-error {
+      margin-top: 24px;
+    }
+  }
+}

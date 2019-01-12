@@ -1,10 +1,21 @@
 .rounded-container {
   background: #fff;
   border-radius: 10px;
+
+  &.auth-container {
+    box-sizing: border-box;
+    margin: 32px auto;
+    width: 500px;
+  }
 }
 
 .standard-container {
   background: #fff;
   margin: 24px;
   padding: 36px;
+}
+
+.save-controls {
+  display: flex;
+  justify-content: flex-end;
 }

@@ -15,7 +15,7 @@ class User::SessionsController < Devise::SessionsController
       id: resource.id,
       email: resource.email,
       name: resource.name,
-      token: current_token,
+      token: current_jwt_token,
       role: resource.highest_role
     }
   end
@@ -30,7 +30,7 @@ class User::SessionsController < Devise::SessionsController
     head :no_content
   end
 
-  def current_token
+  def current_jwt_token
     request.env['warden-jwt_auth.token']
   end
 end

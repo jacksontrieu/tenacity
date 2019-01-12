@@ -1,4 +1,41 @@
 import Route from '@ember/routing/route';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
+import { inject } from '@ember/service';
+import { showWaitCursor } from '../utils/ui';
 
-export default Route.extend(UnauthenticatedRouteMixin);
+const toggleProgress = (inProgress, context) => {
+  showWaitCursor(inProgress);
+  context.controller.set('isLoggingIn', inProgress);
+};
+
+export default Route.extend(UnauthenticatedRouteMixin, {
+  session: inject('session'),
+
+  setupController(controller, model) {
+    this._super(controller, model);
+
+    // Hide the navigation menu since this is an unauthenticated route.
+    this.controllerFor('application').set('showNavigation', false);
+  },
+  actions: {
+    authenticate: function() {
+      const { email, password } = this.controller.getProperties('email', 'password');
+      const credentials = {
+        user: {
+          email: email,
+          password: password
+        }
+      }
+      const authenticator = 'authenticator:token';
+
+      toggleProgress(true, this);
+
+      this.get('session').authenticate(authenticator, credentials).then(response => {
+        toggleProgress(false, this);
+      }).catch(err => {
+        toggleProgress(false, this);
+        this.toast.error('The username or password you entered is incorrect, try again.');
+      });
+    }
+  }
+});

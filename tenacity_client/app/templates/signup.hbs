@@ -1,0 +1,70 @@
+<div class="signup-template">
+  <div class="rounded-container auth-container">
+    {{#link-to "index" class="back-icon icon-button no-border no-outline"}}
+      <i class="fas fa-arrow-left"></i>
+    {{/link-to}}
+
+    <img src="/assets/images/logo light coloured 500x242.png"
+         height="180"
+         alt="Tenacity logo"
+         class="logo-image">
+
+    <h4 class="text-center">Enter your details to sign up for an account</h4>
+
+    <form {{action "signup" on="submit"}}>
+      <div class="signup-inputs">
+        {{input value=email
+                placeholder="Email address"
+                class="form-control email-input"
+                autocomplete="off"
+                type="email"
+                required="true"
+                disabled=isSigningUp}}
+
+        {{input value=first_name
+                placeholder="First name"
+                class="form-control"
+                autocomplete="off"
+                required="true"
+                disabled=isSigningUp}}
+
+        {{input value=last_name
+                placeholder="Last name"
+                class="form-control"
+                autocomplete="off"
+                required="true"
+                disabled=isSigningUp}}
+
+        {{input value=phone
+                placeholder="Phone"
+                class="form-control"
+                autocomplete="off"
+                required="true"
+                disabled=isSigningUp}}
+
+        {{input value=password type="password"
+                placeholder="Password"
+                class="form-control password-input"
+                autocomplete="off"
+                required="true"
+                disabled=isSigningUp}}
+
+        {{input value=confirm_password
+                type="password"
+                placeholder="Confirm password"
+                class="form-control password-input"
+                autocomplete="off"
+                required="true"
+                disabled=isSigningUp}}
+      </div>
+
+      <button class="signup-button styled-button" type="submit">Sign up</button>
+    </form>
+
+    {{#if errorMessage}}
+      <div class="signup-error">
+        {{error-message errorMessage=errorMessage}}
+      </div>
+    {{/if}}
+  </div>
+</div>

@@ -18,7 +18,14 @@ h3 {
   font-weight: 600;
 }
 
+p.section-header {
+  color: $control-placeholder-label;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .container-title {
+  color: #233746;
   margin-top: 0;
 }
 

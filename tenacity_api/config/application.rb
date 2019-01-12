@@ -40,7 +40,7 @@ module TenacityApi
         origins '*'
         resource '*',
                  headers: :any,
-                 methods: %w[get post options]
+                 methods: %w[get post put options]
       end
       # allow do
       #   origins '*'
