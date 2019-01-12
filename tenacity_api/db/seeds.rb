@@ -1,3 +1,5 @@
+require 'faker'
+
 def create_users
   jackson = User.new(
     email: 'jackson.trieu@gmail.com',
@@ -22,4 +24,20 @@ def create_users
   standard.save!
 end
 
+def create_fake_users
+  50.times do
+    user = User.new(
+      email: Faker::Internet.email,
+      first_name: Faker::Name.name,
+      last_name: Faker::Name.last_name,
+      phone: Faker::PhoneNumber.phone_number
+    )
+
+    user.password = 'testing123$'
+    user.password_confirmation = 'testing123$'
+    user.save!
+  end
+end
+
 create_users
+create_fake_users
