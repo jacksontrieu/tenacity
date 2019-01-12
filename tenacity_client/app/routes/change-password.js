@@ -9,9 +9,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
   ajax: inject(),
 
   actions: {
-    goBack: function() {
-      this.transitionTo('dashboard');
-    },
     save: function() {
       const data = this.controller.getProperties('current_password', 'new_password', 'confirm_password');
 

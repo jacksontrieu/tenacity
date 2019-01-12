@@ -43,12 +43,9 @@
           {{loading-spinner visible=isSaving}}
       </div>
 
-      <button class="cancel-button styled-link destructive save-control"
-              type="button"
-              disabled={{isSaving}}
-              {{action "goBack"}}>
-        Cancel
-      </button>
+      {{link-to "Cancel" "users.index"
+                class="cancel-button styled-link destructive save-control"
+                disabled=isSaving}}
 
       <button class="save-button styled-button"
               type="submit"

@@ -10,9 +10,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
   session: inject('session'),
 
   actions: {
-    goBack: function() {
-      this.transitionTo('dashboard');
-    },
     goToChangePassword: function() {
       this.transitionTo('change-password');
     },
