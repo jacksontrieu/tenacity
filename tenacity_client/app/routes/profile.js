@@ -42,6 +42,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         this.set('session.data', newAuthInfo);
 
         showWaitCursor(false);
+        this.controller.set('isSaving', false);
         this.transitionTo('dashboard');
         this.toast.success('Your profile was successfully updated');
       }).catch((err) => {
