@@ -42,6 +42,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^3.4.1",
     "ember-resolver": "^5.0.1",
+    "ember-responsive": "^3.0.0-beta.3",
     "ember-simple-auth": "^1.8.0",
     "ember-simple-auth-token": "^4.0.6",
     "ember-source": "~3.7.0",
@@ -56,5 +57,7 @@
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
   },
-  "dependencies": {}
+  "dependencies": {
+    "ember-light-table": "^1.13.2"
+  }
 }

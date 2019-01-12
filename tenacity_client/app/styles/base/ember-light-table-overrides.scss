@@ -1,0 +1,27 @@
+.ember-light-table {
+  table {
+    thead {
+      th {
+        border-bottom: 1px solid $lightOutline-grey;
+        color: $dark-blue-grey;
+        font-weight: 600;
+        padding-bottom: 8px;
+        text-align: left;
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          color: $text-grey;
+          border-bottom: 1px solid $lightOutline-grey;
+          padding: 6px 0;
+        }
+      }
+    }
+  }
+
+  .cell-edit-icon {
+    text-align: center;
+  }
+}

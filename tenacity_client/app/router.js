@@ -12,7 +12,9 @@ Router.map(function() {
   this.route('profile');
   this.route('change-password');
   this.route('signup');
-  this.route('users');
+  this.route('users', function() {
+    this.route('edit', { path: '/:id' });
+  });
   this.route('unauthorized');
 });
 

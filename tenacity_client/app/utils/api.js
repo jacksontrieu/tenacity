@@ -2,6 +2,7 @@ import ENV from 'tenacity-client/config/environment';
 
 export const endpoints = {
   get_user_details: '/users/details',
+  get_user_list: '/users',
   signup: '/users',
   update_profile: '/users',
   update_password: '/password'
