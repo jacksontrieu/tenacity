@@ -3,4 +3,5 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 import NoNavigationRouteMixin from '../mixins/no-navigation-route-mixin';
 
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
+  classNames: ['root-index']
 });
