@@ -1,0 +1,29 @@
+@import '../base/colors';
+
+body.unauthorized {
+  background: $dark-blue-grey;
+  color: $off-white;
+}
+
+.unauthorized-template {
+  border-radius: 3px;
+  bottom: 0;
+  height: 300px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 400px;
+
+  .unauthorized-code {
+    font-size: 96px;
+    margin-bottom: 48px;
+  }
+
+  .unauthorized-message {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+}
