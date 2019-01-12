@@ -6,7 +6,7 @@ import ENV from 'tenacity-client/config/environment';
 // From https://github.com/ember-cli/ember-ajax#custom-request-headers.
 export default AjaxService.extend({
   session: inject('session'),
-  trustedHosts: [ENV['api_host']],
+  trustedHosts: [ENV['TENACITY_API_HOST']],
   headers: Ember.computed('session.authToken', {
     get() {
       let headers = {};

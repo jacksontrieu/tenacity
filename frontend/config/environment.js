@@ -9,6 +9,8 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+    TENACITY_API_HOST: null,
+    TENACITY_API_FULL_URL: null,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -50,17 +52,17 @@ module.exports = function(environment) {
     // here you can enable a production-specific feature
   }
 
+  ENV['TENACITY_API_HOST'] = process.env.TENACITY_API_HOST;
+  ENV['TENACITY_API_FULL_URL'] = process.env.TENACITY_API_FULL_URL;
+
   ENV['ember-simple-auth'] = {
     routeAfterAuthentication: 'dashboard',
     routeIfAlreadyAuthenticated: 'dashboard',
     authenticationRoute: '/'
   };
 
-  ENV['api_host'] = 'localhost';
-  ENV['api_host_with_port'] = 'http://localhost:3000';
-
   ENV['ember-simple-auth-token'] = {
-    serverTokenEndpoint: ENV['api_host_with_port'] + '/login', // Server endpoint to send authenticate request
+    serverTokenEndpoint: ENV['TENACITY_API_FULL_URL'] + '/login', // Server endpoint to send authenticate request
     tokenPropertyName: 'token', // Key in server response that contains the access token
     headers: {},
     tokenDataPropertyName: 'tokenData', // Key in session to store token data

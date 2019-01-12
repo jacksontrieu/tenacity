@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: tenacity_dev
+  username: <%= ENV['DB_USER_DEV'] %>
+  password: <%= ENV['DB_PWD_DEV'] %>
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: tenacity_test
+  username: <%= ENV['DB_USER_TEST'] %>
+  password: <%= ENV['DB_PWD_TEST'] %>
+
+production:
+  encoding: utf8
+  pool: 15

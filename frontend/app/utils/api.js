@@ -14,7 +14,7 @@ export const endpoints = {
 };
 
 export const buildApiUrl = (endpoint) => {
-  let result = ENV['api_host_with_port'];
+  let result = ENV['TENACITY_API_FULL_URL'];
 
   // Make sure that we don't accidentally have two / characters, or zero of
   // them when we join the host URL with the endpoint part.

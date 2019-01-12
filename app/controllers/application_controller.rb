@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
 
-  alias devise_current_user :current_user
+  # alias devise_current_user :current_user
 
   respond_to :json
 
-  def current_user
-    return devise_current_user
-  end
+  # def current_user
+  #   return devise_current_user
+  # end
 
   protected
 
