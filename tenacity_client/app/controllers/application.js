@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  showNavigation: true
+  showNavigation: true,
+  showAdminNavigationItems: false
 });

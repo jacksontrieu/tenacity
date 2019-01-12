@@ -8,9 +8,17 @@
       <li class="nav-item">
         <div>{{#link-to "dashboard" class="dashboard-nav-item"}}<span><i class="fas fa-tachometer-alt"></i>Dashboard</span>{{/link-to}}</div>
       </li>
+
       <li class="nav-item">
         <div>{{#link-to "profile" class="profile-nav-item"}}<span><i class="fas fa-user-circle"></i>Profile</span>{{/link-to}}</div>
       </li>
+
+      {{#if showAdminNavigationItems}}
+        <li class="nav-item">
+          <div>{{#link-to "users" class="users-nav-item"}}<span><i class="fas fa-users"></i>Manage Users</span>{{/link-to}}</div>
+        </li>
+      {{/if}}
+
       <li class="nav-item">
         <div><a href="#" {{action "logout"}} class="logout-button logout-nav-item"><span><i class="fas fa-sign-out-alt"></i>Logout</span></a></div>
       </li>

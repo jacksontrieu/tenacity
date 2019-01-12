@@ -12,6 +12,8 @@ Router.map(function() {
   this.route('profile');
   this.route('change-password');
   this.route('signup');
+  this.route('users');
+  this.route('unauthorized');
 });
 
 export default Router;

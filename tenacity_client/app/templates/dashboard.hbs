@@ -1,15 +1,17 @@
-<div class="standard-container">
-  <h2 class="container-title">Dashboard</h2>
+<div class="dashboard-template">
+  <div class="standard-container">
+    <h2 class="container-title">Dashboard</h2>
 
-  <p>Hello {{this.model.name}}!</p>
+    <p>Hello {{this.model.name}}!</p>
 
-  <p>Your current role is <strong class="text-primary">{{this.model.role}}</strong> and you have permissions to:</p>
+    <p>Your current role is <strong class="text-primary">{{this.model.role}}</strong> and you have permissions to:</p>
 
-  <ul>
-    {{#each this.model.abilities as |ability|}}
-      <li>
-        <a href={{ability.url}}>{{ability.displayText}}</a>
-      </li>
-    {{/each}}
-  </ul>
+    <ul>
+      {{#each this.model.abilities as |ability|}}
+        <li>
+          <a href={{ability.url}}>{{ability.displayText}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
 </div>

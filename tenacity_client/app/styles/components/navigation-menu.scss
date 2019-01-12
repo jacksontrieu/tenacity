@@ -9,6 +9,10 @@ body.change-password a.profile-nav-item {
   color: $cta-primary !important;
 }
 
+body.users a.users-nav-item {
+  color: $cta-primary !important;
+}
+
 .navigation-menu-component {
   background: $dark-blue-grey;
   display: flex;

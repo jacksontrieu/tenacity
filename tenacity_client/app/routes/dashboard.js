@@ -1,10 +1,13 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import NavigationRouteMixin from '../mixins/navigation-route-mixin';
 import { inject } from '@ember/service';
-import { constants } from '../utils/constants';
+import { checkUserIsAdmin } from '../utils/auth';
 
-const calculateAbilities = (role, router) => {
+const calculateAbilities = (authInfo, router) => {
   let result = [];
+
+  const isUserAdmin = checkUserIsAdmin(authInfo);
 
   result.push({
     displayText: 'Edit your profile',
@@ -16,25 +19,19 @@ const calculateAbilities = (role, router) => {
     url: router.generate('change-password')
   });
 
-  if (role == constants.roles.admin_user) {
+  if (isUserAdmin) {
     result.push({
       displayText: 'Manage all users',
-      url: router.generate('dashboard')
+      url: router.generate('users')
     });
   }
 
   return result;
 };
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin,  {
   session: inject('session'),
 
-  setupController(controller, model) {
-    this._super(controller, model);
-
-    // Hide the navigation menu since this is an unauthenticated route.
-    this.controllerFor('application').set('showNavigation', true);
-  },
   model() {
     let result = {};
 
@@ -45,7 +42,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
     // Calculate the things this user is allowed to do based on their role.
     result['abilities'] = calculateAbilities(
-      authInfo.authenticated.role,
+      authInfo,
       this._router
     );
 

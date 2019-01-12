@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
+import NoNavigationRouteMixin from '../mixins/no-navigation-route-mixin';
 import { inject } from '@ember/service';
 import { showWaitCursor } from '../utils/ui';
 
@@ -8,15 +9,9 @@ const toggleProgress = (inProgress, context) => {
   context.controller.set('isLoggingIn', inProgress);
 };
 
-export default Route.extend(UnauthenticatedRouteMixin, {
+export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   session: inject('session'),
 
-  setupController(controller, model) {
-    this._super(controller, model);
-
-    // Hide the navigation menu since this is an unauthenticated route.
-    this.controllerFor('application').set('showNavigation', false);
-  },
   actions: {
     authenticate: function() {
       const { email, password } = this.controller.getProperties('email', 'password');

@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
+import NoNavigationRouteMixin from '../mixins/no-navigation-route-mixin';
 import { inject } from '@ember/service';
 import { buildApiUrl, endpoints } from '../utils/api';
 import { showWaitCursor } from '../utils/ui';
@@ -17,17 +18,11 @@ const isDuplicateEmailError = (err) => {
          err.payload.errors.email.includes('has already been taken');
 }
 
-export default Route.extend(UnauthenticatedRouteMixin, {
+export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   ajax: inject(),
   session: inject('session'),
   store: inject(),
 
-  setupController(controller, model) {
-    this._super(controller, model);
-
-    // Hide the navigation menu since this is an unauthenticated route.
-    this.controllerFor('application').set('showNavigation', false);
-  },
   actions: {
     signup() {
       const data = {
