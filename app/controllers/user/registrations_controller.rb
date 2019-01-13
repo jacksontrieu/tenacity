@@ -3,7 +3,7 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   respond_to :json
 
-  before_action :check_user_authenticated, only: %w[index detail]
+  before_action :check_user_authenticated, only: %w[index detail show update]
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -58,12 +58,9 @@ class User::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  # PATCH /users(/:id)
-  # PUT /users(/:id)
+  # PATCH /users/:id
+  # PUT /users/:id
   def update
-    # Use the default devise action if this is a profile update (/users route).
-    return super if params[:id].blank?
-
     # Otherwise, for updates to specific users (/users/:id route), use this
     # custom logic.
     form = Forms::Registrations::UpdateUserForm.from_params(

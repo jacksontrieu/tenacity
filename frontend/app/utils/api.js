@@ -6,7 +6,6 @@ export const endpoints = {
   },
   get_user_list: '/users',
   signup: '/users',
-  update_profile: '/users',
   update_password: '/password',
   update_user: function(id) {
     return `/users/${id}`

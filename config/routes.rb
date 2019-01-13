@@ -10,10 +10,8 @@ Rails.application.routes.draw do
 
         get 'users/:id' => 'user/registrations#show'
         get 'users' => 'user/registrations#index'
-        patch 'users' => 'user/registrations#update'
         patch 'users/:id' => 'user/registrations#update'
         post 'users' => 'user/registrations#create'
-        put 'users' => 'user/registrations#update'
         put 'users/:id' => 'user/registrations#update'
       end
 

@@ -21,7 +21,10 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
       showWaitCursor(true);
       this.controller.set('isSaving', true);
 
-      this.get('ajax').request(buildApiUrl(endpoints.update_profile), {
+      const authInfo = this.get('session').data;
+      const loggedInUserId = authInfo.authenticated.id;
+
+      this.get('ajax').request(buildApiUrl(endpoints.update_user(loggedInUserId)), {
         contentType: 'application/json',
         method: 'PUT',
         data: data
@@ -30,8 +33,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         // session service, backed by the Browser's local storage. We need to
         // manually update the name set in this auth info as it may have
         // changed when the user updated their profile.
-        const authInfo = this.get('session').data;
-
         const newAuthInfo = {
           ...authInfo,
           authenticated: {

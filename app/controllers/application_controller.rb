@@ -1,14 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
 
-  # alias devise_current_user :current_user
-
   respond_to :json
-
- #  def current_user
- #    return devise_current_user
- # end
-
   protected
 
   def check_user_authenticated
@@ -25,7 +18,7 @@ class ApplicationController < ActionController::API
     }, status: :bad_request
   end
 
-  def render_unauthorized(message)
+  def render_unauthorized
     render json: {}, status: :unauthorized
   end
 end
