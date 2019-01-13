@@ -46,6 +46,13 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+
+    // Token refresh must be disabled to allow the test to exit, as per:
+    // https://github.com/jpadilla/ember-simple-auth-token#testing-configuration
+    ENV['ember-simple-auth-token'] = {
+      refreshAccessTokens: false,
+      tokenExpirationInvalidateSession: false,
+    };
   }
 
   if (environment === 'production') {
