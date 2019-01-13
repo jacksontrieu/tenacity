@@ -3,9 +3,9 @@ module Commands
     class UpdateUser < Rectify::Command
       include ArrayHelper
 
-      def initialize(form, request_user)
+      def initialize(form, requesting_user)
         @form = form
-        @request_user = request_user
+        @requesting_user = requesting_user
       end
 
       def call
@@ -16,7 +16,7 @@ module Commands
 
         # Check that logged in user has permissions to update the specified
         # user's details.
-        return broadcast(:not_permitted) unless @request_user.can_access_user?(user)
+        return broadcast(:not_permitted) unless @requesting_user.can_access_user?(user)
 
         user.first_name = @form.first_name
         user.last_name = @form.last_name

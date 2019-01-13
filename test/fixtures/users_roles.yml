@@ -1,0 +1,15 @@
+admin_user_admin:
+  user: admin_user
+  role: admin_user
+
+admin_user_two_admin:
+  user: admin_user_two
+  role: admin_user
+
+standard_user_admin:
+  user: standard_user
+  role: standard_user
+
+standard_user_two_admin:
+  user: standard_user_two
+  role: standard_user
