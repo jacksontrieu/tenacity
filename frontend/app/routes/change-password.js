@@ -31,6 +31,9 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         if (err.payload && err.payload.error) {
           errorMessage = err.payload.error;
         }
+        else if (err.payload && err.payload.message) {
+          errorMessage = err.payload.message;
+        }
 
         this.toast.error(errorMessage);
       });

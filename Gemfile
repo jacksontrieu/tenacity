@@ -32,6 +32,9 @@ gem 'devise-jwt', '~> 0.5.8'
 
 gem 'responders', '~> 2.4.0'
 
+# Entropy-based password strength checker used to enforce user passwords.
+gem 'strong_password', '~> 0.0.6'
+
 # Role management library with resource scoping.
 gem 'rolify', '~> 5.1.0'
 

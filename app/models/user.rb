@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include ActiveModel::Validations
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -10,6 +12,9 @@ class User < ApplicationRecord
   after_create :assign_default_role
 
   has_many :users_roles
+
+  # Require a minimum entropy of 18.
+  validates :password, password_strength: true
 
   def assign_default_role
     self.add_role(:standard_user) if self.roles.blank?
