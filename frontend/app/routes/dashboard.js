@@ -11,18 +11,21 @@ const calculateAbilities = (authInfo, router) => {
 
   result.push({
     displayText: 'Edit your profile',
-    url: router.generate('profile')
+    url: router.generate('profile'),
+    className: 'ability-edit-profile'
   });
 
   result.push({
     displayText: 'Change your password',
-    url: router.generate('change-password')
+    url: router.generate('change-password'),
+    className: 'ability-change-password'
   });
 
   if (isUserAdmin) {
     result.push({
       displayText: 'Manage all users',
-      url: router.generate('users')
+      url: router.generate('users'),
+      className: 'ability-manage-all-users'
     });
   }
 
