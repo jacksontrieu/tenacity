@@ -5,9 +5,9 @@ class ApplicationController < ActionController::API
 
   respond_to :json
 
-  # def current_user
-  #   return devise_current_user
-  # end
+ #  def current_user
+ #    return devise_current_user
+ # end
 
   protected
 

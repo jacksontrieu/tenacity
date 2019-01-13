@@ -66,12 +66,12 @@ module.exports = function(environment) {
     tokenPropertyName: 'token', // Key in server response that contains the access token
     headers: {},
     tokenDataPropertyName: 'tokenData', // Key in session to store token data
-    refreshAccessTokens: true, // Enables access token refreshing
+    // refreshAccessTokens: true, // Enables access token refreshing
     tokenExpirationInvalidateSession: true, // Enables session invalidation on token expiration
-    serverTokenRefreshEndpoint: '/api/token-refresh/', // Server endpoint to send refresh request
-    refreshTokenPropertyName: 'refresh_token', // Key in server response that contains the refresh token
-    tokenExpireName: 'exp', // Field containing token expiration
-    refreshLeeway: 600 // Amount of time to send refresh request before token expiration
+    // serverTokenRefreshEndpoint: '/api/token-refresh/', // Server endpoint to send refresh request
+    // refreshTokenPropertyName: 'refresh_token', // Key in server response that contains the refresh token
+    // refreshLeeway: 600, // Amount of time to send refresh request before token expiration
+    tokenExpireName: 'exp' // Field containing token expiration
   };
 
   return ENV;
