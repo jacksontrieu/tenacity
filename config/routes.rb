@@ -13,10 +13,10 @@ Rails.application.routes.draw do
         patch 'users/:id' => 'user/registrations#update'
         post 'users' => 'user/registrations#create'
         put 'users/:id' => 'user/registrations#update'
-      end
 
-      patch 'password' => 'password#update'
-      put 'password' => 'password#update'
+        patch 'password' => 'user/passwords#update'
+        put 'password' => 'user/passwords#update'
+      end
     end
   end
 
