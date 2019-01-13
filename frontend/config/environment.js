@@ -29,6 +29,11 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    // Disable mirage in development mode.
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
+
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -52,6 +57,11 @@ module.exports = function(environment) {
     ENV['ember-simple-auth-token'] = {
       refreshAccessTokens: false,
       tokenExpirationInvalidateSession: false,
+    };
+
+    // Use mirage to provide mock data during tests.
+    ENV['ember-cli-mirage'] = {
+      enabled: true
     };
   }
 
