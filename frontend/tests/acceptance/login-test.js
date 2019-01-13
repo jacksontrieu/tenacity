@@ -18,7 +18,7 @@ module('Acceptance | login', function(hooks) {
     await visit('/login');
 
     await fillIn('input.email-input', 'admin@user.com');
-    await fillIn('input.password-input', 'testing123$');
+    await fillIn('input.password-input', 'testing123$$');
     await click('button.login-button');
 
     assert.equal(currentURL(), '/dashboard');
@@ -28,7 +28,7 @@ module('Acceptance | login', function(hooks) {
     await visit('/login');
 
     await fillIn('input.email-input', 'invalid@user.com');
-    await fillIn('input.password-input', 'testing123$');
+    await fillIn('input.password-input', 'testing123$$');
     await click('button.login-button');
 
     assert.equal(currentURL(), '/login');
