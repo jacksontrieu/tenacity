@@ -25,9 +25,9 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
 
       toggleProgress(true, this);
 
-      this.get('session').authenticate(authenticator, credentials).then(response => {
+      this.get('session').authenticate(authenticator, credentials).then(() => {
         toggleProgress(false, this);
-      }).catch(err => {
+      }).catch(() => {
         toggleProgress(false, this);
         this.toast.error('The username or password you entered is incorrect, try again.');
       });

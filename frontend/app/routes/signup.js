@@ -53,9 +53,9 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
         }
         const authenticator = 'authenticator:token';
 
-        this.get('session').authenticate(authenticator, credentials).then(response => {
+        this.get('session').authenticate(authenticator, credentials).then(() => {
           toggleProgress(false, this);
-        }).catch(err => {
+        }).catch(() => {
           toggleProgress(false, this);
           this.toast.error('We were able to register a new account but could not log in. Please contact support');
         });

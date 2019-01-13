@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 import { inject } from '@ember/service';
 import { checkUserIsAdmin } from '../utils/auth';
 
 // This route mixin will add a navigation menu to the top of the page.
-const NavigationRouteMixin = Ember.Mixin.create({
+const NavigationRouteMixin = Mixin.create({
   session: inject('session'),
 
   setupController: function(controller, model) {

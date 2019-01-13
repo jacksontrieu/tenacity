@@ -6,28 +6,28 @@
       Basic Settings
     </p>
 
-    <label for="{{concat elementId '-first-name'}}" class="input-label">First Name</label>
+    <label for={{concat elementId "-first-name"}} class="input-label">First Name</label>
     {{input value=(mut (get model "first_name"))
             placeholder="First name"
-            id=(concat elementId '-first-name')
+            id=(concat elementId "-first-name")
             class="form-control medium-length"
             autocomplete="off"
             required="true"
             disabled=isSaving}}
 
-    <label for="{{concat elementId '-last-name'}}" class="input-label">Last Name</label>
+    <label for={{concat elementId "-last-name"}} class="input-label">Last Name</label>
     {{input value=(mut (get model "last_name"))
             placeholder="Last name"
-            id=(concat elementId '-last-name')
+            id=(concat elementId "-last-name")
             class="form-control medium-length"
             autocomplete="off"
             required="true"
             disabled=isSaving}}
 
-    <label for="{{concat elementId '-phone'}}" class="input-label">Phone</label>
+    <label for={{concat elementId "-phone"}} class="input-label">Phone</label>
     {{input value=(mut (get model "phone"))
             placeholder="Phone"
-            id=(concat elementId '-phone')
+            id=(concat elementId "-phone")
             class="form-control medium-length"
             autocomplete="off"
             required="true"
@@ -39,19 +39,18 @@
       Change password
     </p>
 
-    <button class="save-button styled-button"
-            type="button"
+    <a class="save-button styled-button"
             data-type="secondary"
-            {{action "goToChangePassword"}}
+            href="/change-password"
             disabled={{isSaving}}>
       Change password
-    </button>
+    </a>
 
     <hr class="styled-separator">
 
     <div class="save-controls">
       <div class="spinner-wrapper">
-          {{loading-spinner visible=isSaving}}
+        {{loading-spinner visible=isSaving}}
       </div>
 
       {{link-to "Cancel" "dashboard"

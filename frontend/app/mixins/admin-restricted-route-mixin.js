@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 import { inject } from '@ember/service';
 import { checkUserIsAdmin } from '../utils/auth';
 
 // This route mixin will redirect non-admin users to the unauthorized page.
-const AdminRestrictedRouteMixin = Ember.Mixin.create({
+const AdminRestrictedRouteMixin = Mixin.create({
   session: inject('session'),
 
   setupController: function(controller, model) {

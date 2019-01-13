@@ -10,9 +10,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
   session: inject('session'),
 
   actions: {
-    goToChangePassword: function() {
-      this.transitionTo('change-password');
-    },
     save: function() {
       const data = {
         user: this.controller.get('model')
@@ -28,7 +25,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         contentType: 'application/json',
         method: 'PUT',
         data: data
-      }).then((response) => {
+      }).then(() => {
         // ember-simple-auth-token stores authorization info in a
         // session service, backed by the Browser's local storage. We need to
         // manually update the name set in this auth info as it may have
@@ -46,7 +43,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         this.controller.set('isSaving', false);
         this.transitionTo('dashboard');
         this.toast.success('Your profile was successfully updated');
-      }).catch((err) => {
+      }).catch(() => {
         showWaitCursor(false);
         this.controller.set('isSaving', false);
 

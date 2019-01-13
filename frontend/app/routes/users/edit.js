@@ -37,7 +37,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         contentType: 'application/json',
         method: 'PUT',
         data: data
-      }).then((response) => {
+      }).then(() => {
         this.controller.set('isSaving', false);
 
         // ember-simple-auth-token stores authorization info in a
@@ -60,7 +60,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         showWaitCursor(false);
         this.transitionTo('users');
         this.toast.success('User was updated successfully');
-      }).catch((err) => {
+      }).catch(() => {
         showWaitCursor(false);
         this.controller.set('isSaving', false);
 
