@@ -16,7 +16,15 @@ const isDuplicateEmailError = (err) => {
          err.payload.errors &&
          err.payload.errors.email &&
          err.payload.errors.email.includes('has already been taken');
-}
+};
+
+const isWeakPasswordError = (err) => {
+  return err &&
+         err.payload &&
+         err.payload.errors &&
+         err.payload.errors.password &&
+         err.payload.errors.password.includes('is too weak');
+};
 
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   ajax: inject(),
@@ -25,6 +33,21 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
 
   actions: {
     signup() {
+      const {
+        email,
+        password,
+        confirm_password
+      } = this.controller.getProperties(
+        'email',
+        'password',
+        'confirm_password'
+      );
+
+      if (password != confirm_password) {
+        this.toast.error('Passwords do not match.');
+        return;
+      }
+
       const data = {
         user: this.controller.getProperties(
           'email',
@@ -43,8 +66,6 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
         method: 'POST',
         data: data
       }).then(() => {
-        const { email, password } = this.controller.getProperties('email', 'password');
-
         const credentials = {
           user: {
             email: email,
@@ -63,10 +84,15 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
         toggleProgress(false, this);
 
         let errorMessage = 'Could not signup, please try again';
+
         if (isDuplicateEmailError(err)) {
           const { email } = this.controller.getProperties('email');
           errorMessage = `Email address ${email} has already been taken.`;
         }
+        else if (isWeakPasswordError(err)) {
+          errorMessage = 'Password is too weak.';
+        }
+
         this.toast.error(errorMessage);
       });
     }
