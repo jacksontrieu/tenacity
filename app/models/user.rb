@@ -9,13 +9,24 @@ class User < ApplicationRecord
 
   after_create :assign_default_role
 
+  def assign_default_role
+    self.add_role(:standard_user) if self.roles.blank?
+  end
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+  delegate :can?, :cannot?, :to => :ability
+
+  # Determines if the user is allowed to read/update a specified user.
+  def can_access_user?(user_to_access)
+    return self.id == user_to_access.id ||
+           self.has_role?(:admin_user)
+  end
+
   def name
     result = first_name.strip + ' ' + last_name.strip
     return result.strip
-  end
-
-  def assign_default_role
-    self.add_role(:standard_user) if self.roles.blank?
   end
 
   def highest_role

@@ -52,6 +52,11 @@ gem 'figaro', '~> 1.1.1'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', '~> 0.4.1', require: 'rack/cors'
 
+# Provides a high-level architecture for rails apps, providing abstractions
+# prescribing how to implement and structure business logic.
+gem 'rectify', '0.13.0'
+
+# Helps generate fake data.
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 
 gem 'ember-cli-rails', '~> 0.10.0'

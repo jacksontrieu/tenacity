@@ -18,14 +18,14 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def render_bad_request(message, code)
+  def render_bad_request(message, code = '')
     render json: {
       message: message,
       code: code
     }, status: :bad_request
   end
 
-  def render_unauthorized
+  def render_unauthorized(message)
     render json: {}, status: :unauthorized
   end
 end

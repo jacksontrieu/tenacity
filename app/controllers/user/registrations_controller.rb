@@ -7,46 +7,84 @@ class User::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
+  # GET /users
   def index
-    return render_unauthorized unless can? :manage, :all_users
+    form = Forms::Registrations::GetUsersForm.from_params(
+      page_number: params[:page_number] || 1,
+      page_size: params[:page_size] || 20
+    )
 
-    query = ::Queries::Users::All.new
+    Commands::Registrations::GetUsers.call(form, current_user) do
+      on(:ok) do |users|
+        return render json: {
+          users: users,
+          page_number: form.page_number,
+          page_size: form.page_size
+        }, status: :ok
+      end
 
-    users = query.data.select(:id, :email, :first_name, :last_name, :phone)
+      on(:invalid) do |reason|
+        return render_bad_request(reason)
+      end
 
-    render json: {
-      users: users,
-      page_number: query.page_number,
-      page_size: query.page_size
-    }, status: :ok
+      on(:not_permitted) do
+        return render_unauthorized
+      end
+    end
   end
 
+  # GET /users/:id
   def show
-    user = User.find(params[:id])
+    form = Forms::Registrations::GetUserForm.from_params(params)
 
-    return render_unauthorized unless can_access_user?(current_user, user)
+    Commands::Registrations::GetUser.call(form, current_user) do
+      on(:ok) do |user|
+        return render json: {
+          id: user.id,
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          phone: user.phone
+        }, status: :ok
+      end
 
-    return render json: {
-      id: user.id,
-      email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      phone: user.phone
-    }, status: :ok
+      on(:invalid) do |reason|
+        return render_bad_request(reason)
+      end
+
+      on(:not_permitted) do
+        return render_unauthorized
+      end
+    end
   end
 
-#https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-account-without-providing-a-password
-
+  # PATCH /users(/:id)
+  # PUT /users(/:id)
   def update
-    if params[:id].blank?
-      super
-    else
-      user = User.find(params[:id])
-      user.first_name = params['user']['first_name']
-      user.last_name = params['user']['last_name']
-      user.phone = params['user']['phone']
-      user.save
-      render json: {}, status: :ok
+    # Use the default devise action if this is a profile update (/users route).
+    return super if params[:id].blank?
+
+    # Otherwise, for updates to specific users (/users/:id route), use this
+    # custom logic.
+    form = Forms::Registrations::UpdateUserForm.from_params(
+      id: params[:id],
+      first_name: params['user']['first_name'],
+      last_name: params['user']['last_name'],
+      phone: params['user']['phone']
+    )
+
+    Commands::Registrations::UpdateUser.call(form, current_user) do
+      on(:ok) do
+        return render json: {}, status: :ok
+      end
+
+      on(:invalid) do |reason|
+        return render_bad_request(reason)
+      end
+
+      on(:not_permitted) do
+        return render_unauthorized
+      end
     end
   end
 
@@ -62,12 +100,5 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: %w[first_name last_name phone])
-  end
-
-  private
-
-  def can_access_user?(requesting_user, requested_user)
-    return requesting_user.id == requested_user.id ||
-           requesting_user.has_role?(:admin_user)
   end
 end
