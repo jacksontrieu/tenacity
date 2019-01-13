@@ -63,6 +63,15 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'] = {
       enabled: true
     };
+
+    ENV['ember-toastr'] = {
+      toastrOptions: {
+        showDuration: '10000',
+        hideDuration: '1000',
+        timeOut: '10000',
+        extendedTimeOut: '10000'
+      }
+    };
   }
 
   if (environment === 'production') {

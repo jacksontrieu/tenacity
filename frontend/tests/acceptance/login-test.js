@@ -15,6 +15,15 @@ module('Acceptance | login', function(hooks) {
   });
 
   test ('after logging in redirected to /dashboard', async function(assert) {
+    this.server.post('/api/v1/login', {
+        id: 1,
+        email: 'admin@user.com',
+        name: 'Admin User',
+        token: 'THIS_IS_A_TOKEN',
+        role: 'admin_user'
+      }, 200
+    );
+
     await visit('/login');
 
     await fillIn('input.email-input', 'admin@user.com');
@@ -25,6 +34,8 @@ module('Acceptance | login', function(hooks) {
   });
 
   test ('after failed login, not redirected', async function(assert) {
+    this.server.post('/api/v1/login', {}, 401);
+
     await visit('/login');
 
     await fillIn('input.email-input', 'invalid@user.com');
