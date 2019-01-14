@@ -57,18 +57,17 @@ class User::RegistrationsController < Devise::RegistrationsController
   # PATCH /users/:id
   # PUT /users/:id
   def update
-    # Otherwise, for updates to specific users (/users/:id route), use this
-    # custom logic.
     form = Forms::Registrations::UpdateUserForm.from_params(
-      id: params[:id],
-      first_name: params['user']['first_name'],
-      last_name: params['user']['last_name'],
-      phone: params['user']['phone']
+      id: params['data']['id'],
+      first_name: params['data']['attributes']['first-name'],
+      last_name: params['data']['attributes']['last-name'],
+      phone: params['data']['attributes']['phone']
     )
 
     Commands::Registrations::UpdateUser.call(form, current_user) do
-      on(:ok) do
-        return render json: {}, status: :ok
+      on(:ok) do |user|
+        resource = JSONAPI::ResourceSerializer.new(UserResource).serialize_to_hash(UserResource.new(user, nil))
+        return render json: resource, status: :ok
       end
 
       on(:invalid) do |reason|

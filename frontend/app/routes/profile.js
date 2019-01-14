@@ -11,9 +11,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
 
   actions: {
     save: function() {
-      const data = {
-        user: this.controller.get('model')
-      };
+      let self = this;
 
       showWaitCursor(true);
       this.controller.set('isSaving', true);
@@ -21,34 +19,31 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
       const authInfo = this.get('session').data;
       const loggedInUserId = authInfo.authenticated.id;
 
-      this.get('ajax').request(buildApiUrl(endpoints.update_user(loggedInUserId)), {
-        contentType: 'application/json',
-        method: 'PUT',
-        data: data
-      }).then(() => {
-        // ember-simple-auth-token stores authorization info in a
-        // session service, backed by the Browser's local storage. We need to
-        // manually update the name set in this auth info as it may have
-        // changed when the user updated their profile.
-        const newAuthInfo = {
-          ...authInfo,
-          authenticated: {
-            ...authInfo.authenticated,
-            name: (data.user.first_name + ' ' + data.user.last_name).trim()
+      this.store.findRecord('user', loggedInUserId).then(function(user) {
+        user.save().then(() => {
+          // ember-simple-auth-token stores authorization info in a
+          // session service, backed by the Browser's local storage. We need to
+          // manually update the name set in this auth info as it may have
+          // changed when the user updated their profile.
+          const newAuthInfo = {
+            ...authInfo,
+            authenticated: {
+              ...authInfo.authenticated,
+              name: (user.first_name + ' ' + user.last_name).trim() // Refactor this.
+            }
           }
-        }
-        this.set('session.data', newAuthInfo);
+          self.set('session.data', newAuthInfo);
 
-        showWaitCursor(false);
-        this.controller.set('isSaving', false);
-        this.transitionTo('dashboard');
-        this.toast.success('Your profile was successfully updated');
-      }).catch(() => {
-        showWaitCursor(false);
-        this.controller.set('isSaving', false);
+          showWaitCursor(false);
+          self.controller.set('isSaving', false);
+          self.transitionTo('dashboard');
+          self.toast.success('Your profile was successfully updated');
+        }).catch(() => {
+          self.controller.set('isSaving', false);
 
-        let errorMessage = 'Could not update profile, please try again';
-        this.toast.error(errorMessage);
+          let errorMessage = 'Could not update profile, please try again';
+          self.toast.error(errorMessage);
+        });
       });
     }
   },

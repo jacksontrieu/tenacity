@@ -25,7 +25,7 @@ module Commands
 
         return broadcast(:invalid, squash_strings(user.errors.full_messages)) if user.invalid?
 
-        return broadcast(:ok)
+        return broadcast(:ok, user)
       end
     end
   end
