@@ -17,8 +17,12 @@ module Commands
         should 'Broadcast :ok if requesting user has permission to manage all users' do
           assert @requesting_user.can?(:manage, :all_users)
 
-          users = assert_command_result(:ok, @form, @requesting_user)
+          result_hash = assert_command_result(:ok, @form, @requesting_user)
+          users = result_hash[:users]
+          total_count = result_hash[:total_count]
+
           assert_equal users.count, User.all.count
+          assert_equal total_count, User.all.count
         end
 
         should 'Does not return more than page size' do
@@ -32,8 +36,12 @@ module Commands
             page_size: requested_page_size
           )
 
-          users = assert_command_result(:ok, form, @requesting_user)
+          result_hash = assert_command_result(:ok, form, @requesting_user)
+          users = result_hash[:users]
+          total_count = result_hash[:total_count]
+
           assert_equal users.count, requested_page_size
+          assert_equal total_count, User.all.count
         end
 
         should 'Broadcast :invalid if page number smaller than 1' do
@@ -65,14 +73,16 @@ module Commands
       def assert_command_result(broadcasted_value, form, requesting_user)
         is_ok = false
         users = nil
+        total_count = nil
         is_invalid = false
         invalid_reason = nil
         is_not_permitted = false
 
         ::Commands::Registrations::GetUsers.call(form, requesting_user) do
-          on(:ok) do |returned_users|
+          on(:ok) do |returned_users, returned_total_count|
             is_ok = true
             users = returned_users
+            total_count = returned_total_count
           end
 
           on(:invalid) do |reason|
@@ -89,7 +99,8 @@ module Commands
           assert invalid_reason.blank?
           assert_not is_not_permitted
           assert_not_nil users
-          return users
+          assert_not_nil total_count
+          return { users: users, total_count: total_count }
         elsif broadcasted_value == :invalid
           assert_not is_ok
           assert is_invalid

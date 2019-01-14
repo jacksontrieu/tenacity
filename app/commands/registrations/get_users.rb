@@ -19,7 +19,9 @@ module Commands
                     .per(@form.page_size)
                     .order(:first_name, :last_name)
 
-        return broadcast(:ok, users)
+        total_count = User.all.count
+
+        return broadcast(:ok, users, total_count)
       end
     end
   end

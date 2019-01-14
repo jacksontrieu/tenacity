@@ -15,11 +15,12 @@ class User::RegistrationsController < Devise::RegistrationsController
     )
 
     Commands::Registrations::GetUsers.call(form, current_user) do
-      on(:ok) do |users|
+      on(:ok) do |users, total_count|
         return render json: {
           users: users,
           page_number: form.page_number,
-          page_size: form.page_size
+          page_size: form.page_size,
+          total_count: total_count
         }, status: :ok
       end
 
