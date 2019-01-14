@@ -6,7 +6,7 @@ module Commands
       def setup
         @user = users(:admin_user)
         @form = ::Forms::Passwords::UpdatePasswordForm.from_params(
-          current_password: 'testing123$$',
+          current_password: 'testing123$',
           new_password: 'another123$$$',
           confirm_password: 'another123$$$'
         )
@@ -30,13 +30,24 @@ module Commands
 
         should "Broadcast :invalid if new password doesn't match" do
           form = ::Forms::Passwords::UpdatePasswordForm.from_params(
-            current_password: 'testing123$$',
+            current_password: 'testing123$',
             new_password: 'another123$$$',
             confirm_password: '__NOT_MATCHING__'
           )
 
           reason = assert_command_result(:invalid, form, @user)
           assert_equal "The new password doesn't match.", reason
+        end
+
+        should 'Broadcast :invalid if new password is weak' do
+          form = ::Forms::Passwords::UpdatePasswordForm.from_params(
+            current_password: 'testing123$',
+            new_password: 'weak',
+            confirm_password: 'weak'
+          )
+
+          reason = assert_command_result(:invalid, form, @user)
+          assert_equal 'New password Complexity requirement not met. Length should be 8-70 characters and include: 1 lowercase, 1 digit and 1 special character.', reason
         end
 
         should 'Broadcast :invalid if new passwords blank' do

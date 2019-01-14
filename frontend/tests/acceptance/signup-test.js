@@ -33,8 +33,8 @@ module('Acceptance | signup', function(hooks) {
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
     await fillIn('input.phone-input', '0412 345 678');
-    await fillIn('input.password-input', 'testing123$$');
-    await fillIn('input.confirm-password-input', 'testing123$$');
+    await fillIn('input.password-input', 'testing123$');
+    await fillIn('input.confirm-password-input', 'testing123$');
     await click('button.signup-button');
 
     assert.equal(currentURL(), '/dashboard');
@@ -56,8 +56,8 @@ module('Acceptance | signup', function(hooks) {
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
     await fillIn('input.phone-input', '0412 345 678');
-    await fillIn('input.password-input', 'testing123$$');
-    await fillIn('input.confirm-password-input', 'testing123$$');
+    await fillIn('input.password-input', 'testing123$');
+    await fillIn('input.confirm-password-input', 'testing123$');
     await click('button.signup-button');
 
     assert.equal(currentURL(), '/dashboard');
@@ -129,8 +129,8 @@ module('Acceptance | signup', function(hooks) {
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
     await fillIn('input.phone-input', '0412 345 678');
-    await fillIn('input.password-input', 'testing123$$');
-    await fillIn('input.confirm-password-input', 'testing123$$');
+    await fillIn('input.password-input', 'testing123$');
+    await fillIn('input.confirm-password-input', 'testing123$');
     await click('button.signup-button');
 
     let waitCount = 0;

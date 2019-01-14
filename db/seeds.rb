@@ -7,8 +7,8 @@ def create_users
     last_name: 'Trieu',
     phone: '0412 345 678'
   )
-  jackson.password = 'testing123$$'
-  jackson.password_confirmation = 'testing123$$'
+  jackson.password = 'testing123$'
+  jackson.password_confirmation = 'testing123$'
   jackson.save!
   jackson.remove_role(:standard_user)
   jackson.add_role(:admin_user)
@@ -19,8 +19,8 @@ def create_users
     last_name: 'User',
     phone: '0498 765 432'
   )
-  standard.password = 'testing123$$'
-  standard.password_confirmation = 'testing123$$'
+  standard.password = 'testing123$'
+  standard.password_confirmation = 'testing123$'
   standard.save!
 end
 
@@ -33,8 +33,8 @@ def create_fake_users
       phone: Faker::PhoneNumber.phone_number
     )
 
-    user.password = 'testing123$$'
-    user.password_confirmation = 'testing123$$'
+    user.password = 'testing123$'
+    user.password_confirmation = 'testing123$'
     user.save!
   end
 end

@@ -37,9 +37,9 @@ module('Acceptance | change password', function(hooks) {
 
     await visit('/change-password');
 
-    await fillIn('input.current-password-input', 'testing123$$');
-    await fillIn('input.new-password-input', 'newtesting123$$');
-    await fillIn('input.confirm-password-input', 'newtesting123$$');
+    await fillIn('input.current-password-input', 'testing123$');
+    await fillIn('input.new-password-input', 'newtesting123$');
+    await fillIn('input.confirm-password-input', 'newtesting123$');
     await click('button.save-button');
 
     assert.equal(currentURL(), '/dashboard');
@@ -59,7 +59,7 @@ module('Acceptance | change password', function(hooks) {
 
     await visit('/change-password');
 
-    await fillIn('input.current-password-input', 'testing123$$');
+    await fillIn('input.current-password-input', 'testing123$');
     await fillIn('input.new-password-input', 'NOPE123%$^');
     await fillIn('input.confirm-password-input', 'YEP123%$^');
     await click('button.save-button');

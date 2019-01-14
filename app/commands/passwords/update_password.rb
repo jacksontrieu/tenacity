@@ -19,10 +19,6 @@ module Commands
           return broadcast(:invalid, "The new password doesn't match.")
         end
 
-        unless StrongPassword::StrengthChecker.new(@form.new_password).is_strong?
-          return broadcast(:invalid, "Password too weak.")
-        end
-
         @requesting_user.password = @form.new_password
         @requesting_user.save
 
