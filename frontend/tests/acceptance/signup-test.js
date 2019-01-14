@@ -87,9 +87,9 @@ module('Acceptance | signup', function(hooks) {
 
     this.server.post('/api/v1/users', {
       errors: {
-        password: 'is too weak'
+        password: ["Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character"]
       }
-    }, 400);
+    }, 422);
 
     await visit('/signup');
 
