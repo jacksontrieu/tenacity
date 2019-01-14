@@ -45,7 +45,7 @@ Tenacity application users are split into two roles:
 | Edit any user's profile |               |      x     |
 
 ## Demo
-Here is a working live demo: https://tenacity-jt.herokuapp.com/
+Here is a working live demo: https://infinite-garden-57955.herokuapp.com/
 
 Please note that the demo is hosted on a free Heroku dyno so may not be booted the first time you access it ([free Heroku web dyno's automatically sleep after 30 minutes if they have not received web traffic](https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping)). Please allow up to 2 minutes after navigating to the demo for the app to boot.
 
