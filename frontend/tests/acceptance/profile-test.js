@@ -6,7 +6,6 @@ import { authenticateSession } from 'ember-simple-auth/test-support';
 import { adminUserSessionHash } from '../utils/auth';
 import { getAdminUserResponse } from '../utils/responses/users';
 import { delay } from '../utils/helpers';
-import Mirage from 'ember-cli-mirage';
 
 module('Acceptance | profile', function(hooks) {
   setupApplicationTest(hooks);
@@ -21,14 +20,9 @@ module('Acceptance | profile', function(hooks) {
   });
 
   test('if logged in visiting /profile renders profile page and loads user details', async function(assert) {
-    assert.expect(5);
+    assert.expect(4);
 
-    this.server.get(`/api/v1/users/${adminUserSessionHash.id}`, () => {
-      // Expect an API call to this URL to be made.
-      assert.equal(1, 1);
-
-      return new Mirage.Response(200, {}, getAdminUserResponse);
-    });
+    this.server.get(`/api/v1/users/${adminUserSessionHash.id}`, getAdminUserResponse, 200);
 
     await authenticateSession(adminUserSessionHash);
 
