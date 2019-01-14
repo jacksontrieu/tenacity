@@ -27,6 +27,10 @@ export default Controller.extend({
     }];
   }),
 
+  pageNumber: 1,
+  pageSize: 25,
+  totalCount: 0,
+
   table: computed('model', function() {
    return new Table(this.get('columns'), this.get('model').users, { enableSync: true });
   })
