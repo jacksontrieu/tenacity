@@ -9,7 +9,6 @@ export default Route.extend(AdminRestrictedRouteMixin, AuthenticatedRouteMixin, 
   ajax: inject(),
 
   model() {
-    debugger;
     return this.get('ajax').request(buildApiUrl(endpoints.get_user_list));
   }
 });
