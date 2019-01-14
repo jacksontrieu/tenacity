@@ -3,6 +3,8 @@ import { click, fillIn, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { authenticateSession } from 'ember-simple-auth/test-support';
+import { validLoginResponse } from '../utils/responses/login';
+import { validSignupResponse } from '../utils/responses/signup';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -11,19 +13,18 @@ module('Acceptance | signup', function(hooks) {
   setupMirage(hooks);
 
   test('visiting /signup', async function(assert) {
+    assert.expect(1);
+
     await visit('/signup');
 
     assert.equal(currentURL(), '/signup');
   });
 
   test ('after signing up, redirected to /dashboard', async function(assert) {
-    this.server.post('/api/v1/users', {
-      id: 1,
-      email: 'admin@user.com',
-      name: 'Admin User',
-      token: 'THIS_IS_A_TOKEN',
-      role: 'admin_user'
-    }, 200);
+    assert.expect(1);
+
+    this.server.post('/api/v1/users', validSignupResponse, 200);
+    this.server.post('/api/v1/login', validLoginResponse, 200);
 
     await visit('/signup');
 
@@ -39,6 +40,8 @@ module('Acceptance | signup', function(hooks) {
   });
 
   test ('if not all fields filled in, not redirected', async function(assert) {
+    assert.expect(1);
+
     await visit('/signup');
 
     await fillIn('input.email-input', 'admin@user.com');
@@ -52,6 +55,8 @@ module('Acceptance | signup', function(hooks) {
   });
 
   test ('weak password shows an error toast and does not redirect', async function(assert) {
+    assert.expect(2);
+
     this.server.post('/api/v1/users', {
       errors: {
         password: 'is too weak'
@@ -82,6 +87,8 @@ module('Acceptance | signup', function(hooks) {
   });
 
   test ('duplicate email address shows an error toast and does not redirect', async function(assert) {
+    assert.expect(2);
+
     this.server.post('/api/v1/users', {
       errors: {
         email: 'Email duplicate@user.com has already been taken.'
@@ -112,6 +119,8 @@ module('Acceptance | signup', function(hooks) {
   });
 
   test ('if already logged in, visiting /signup redirects to /dashboard', async function(assert) {
+    assert.expect(1);
+
     await authenticateSession({
       id: 1,
       email: 'admin@user.com',

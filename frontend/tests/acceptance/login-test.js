@@ -9,12 +9,16 @@ module('Acceptance | login', function(hooks) {
   setupMirage(hooks);
 
   test('visiting /login', async function(assert) {
+    assert.expect(1);
+
     await visit('/login');
 
     assert.equal(currentURL(), '/login');
   });
 
   test ('after logging in redirected to /dashboard', async function(assert) {
+    assert.expect(1);
+
     this.server.post('/api/v1/login', {
         id: 1,
         email: 'admin@user.com',
@@ -34,6 +38,8 @@ module('Acceptance | login', function(hooks) {
   });
 
   test ('after failed login, not redirected', async function(assert) {
+    assert.expect(1);
+
     this.server.post('/api/v1/login', {}, 401);
 
     await visit('/login');
@@ -46,6 +52,8 @@ module('Acceptance | login', function(hooks) {
   });
 
   test ('if already logged in, visiting /login redirects to /dashboard', async function(assert) {
+    assert.expect(1);
+
     await authenticateSession({
       id: 1,
       email: 'admin@user.com',

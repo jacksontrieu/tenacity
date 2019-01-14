@@ -3,14 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-// function setupRouter({ container }) {
-//   const router = container.lookup('router:main');
-//   router.startRouting(true);
-// }
-
 module('Integration | Component | cell-edit-icon', function(hooks) {
   setupRenderingTest(hooks);
   test('it renders', async function(assert) {
+    assert.expect(1);
+
     // Need to turn on the router for this test because this component uses a
     // link-to helper which requries a router, as per:
     // https://stackoverflow.com/a/53735725

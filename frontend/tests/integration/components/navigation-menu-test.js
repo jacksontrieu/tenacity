@@ -22,6 +22,8 @@ module('Integration | Component | navigation-menu', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders and shows admin items', async function(assert) {
+    assert.expect(5);
+
     // Need to turn on the router for this test because this component uses a
     // link-to helper which requries a router, as per:
     // https://stackoverflow.com/a/53735725
@@ -43,6 +45,8 @@ module('Integration | Component | navigation-menu', function(hooks) {
   });
 
   test('it renders and hides admin items', async function(assert) {
+    assert.expect(5);
+
     // Need to turn on the router for this test because this component uses a
     // link-to helper which requries a router, as per:
     // https://stackoverflow.com/a/53735725

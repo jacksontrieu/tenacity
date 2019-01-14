@@ -7,6 +7,8 @@ module('Integration | Component | error-message', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
+    assert.expect(1);
+
     const expectedMessage = 'THIS IS BAD';
     this.set('errorMessage', expectedMessage);
 
