@@ -34,22 +34,5 @@ module TenacityApi
 
     config.autoload_paths << "#{config.root}/app"
     config.autoload_paths << Rails.root.join('lib')
-
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*',
-                 headers: :any,
-                 methods: %w[get post put options]
-      end
-      # allow do
-      #   origins '*'
-      #   resource '*',
-      #            headers: %w[Authorization],
-      #            methods: %w[get post options],
-      #            expose: %w[Authorization],
-      #            max_age: 600
-      # end
-    end
   end
 end
