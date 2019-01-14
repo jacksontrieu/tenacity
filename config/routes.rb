@@ -14,8 +14,8 @@ Rails.application.routes.draw do
         post 'users' => 'user/registrations#create'
         put 'users/:id' => 'user/registrations#update'
 
-        patch 'password' => 'user/passwords#update'
-        put 'password' => 'user/passwords#update'
+        patch 'passwords/:id' => 'user/passwords#update'
+        put 'passwords/:id' => 'user/passwords#update'
       end
     end
   end

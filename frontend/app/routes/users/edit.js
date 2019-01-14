@@ -43,8 +43,7 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
           self.controller.set('isSaving', false);
           self.transitionTo('users');
           self.toast.success('User was updated successfully');
-        }).catch((err) => {
-          debugger;
+        }).catch(() => {
           self.controller.set('isSaving', false);
 
           let errorMessage = 'Could not update profile, please try again';

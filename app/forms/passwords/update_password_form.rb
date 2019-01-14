@@ -1,10 +1,12 @@
 module Forms
   module Passwords
     class UpdatePasswordForm < Rectify::Form
+      attribute :id, Integer
       attribute :current_password, String
       attribute :new_password,  String
       attribute :confirm_password,  String
 
+      validates :id, presence: true, numericality: { greater_than_or_equal_to: 1 }
       validates :current_password, presence: true
       validates :new_password, presence: true
       validates :confirm_password, presence: true
