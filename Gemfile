@@ -30,7 +30,7 @@ gem 'devise', '~> 4.5.0'
 # The Ember front-end will communicate with devise using JSON Web Tokens.
 gem 'devise-jwt', '~> 0.5.8'
 
-# Framework to help build JSON API compliant Rails API's.
+# Frameworks to help build JSON API compliant Rails API's.
 gem 'jsonapi-resources', '~> 0.9.0'
 
 gem 'responders', '~> 2.4.0'

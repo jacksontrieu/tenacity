@@ -23,17 +23,15 @@ export default Route.extend(AdminRestrictedRouteMixin, AuthenticatedRouteMixin, 
   },
 
   model(params) {
-    return this.get('ajax').request(buildApiUrl(endpoints.get_user_list(
-      params.pageNumber,
-      params.pageSize
-    )));
+    return this.store.query('user', {
+      page_number: params.pageNumber,
+      page_size: params.pageSize
+    });
   },
 
   afterModel(model) {
     showWaitCursor(false);
     this.controllerFor('users/index').set('isLoading', false);
-    this.controllerFor('users/index').set('pageNumber', model.page_number);
-    this.controllerFor('users/index').set('pageSize', model.page_size);
-    this.controllerFor('users/index').set('totalCount', model.total_count);
+    this.controllerFor('users/index').set('totalCount', model.meta.totalCount);
   }
 });

@@ -15,13 +15,16 @@ class User::RegistrationsController < Devise::RegistrationsController
     )
 
     Commands::Registrations::GetUsers.call(form, current_user) do
-      on(:ok) do |users, total_count|
-        return render json: {
-          users: users,
-          page_number: form.page_number,
-          page_size: form.page_size,
-          total_count: total_count
-        }, status: :ok
+      on(:ok) do |users, total_count, total_pages|
+        resource_array = users.map { |user| UserResource.new(user, nil) }
+
+        data = JSONAPI::ResourceSerializer.new(UserResource).serialize_to_hash(resource_array)
+        data['meta'] = {
+          totalPages: total_pages,
+          totalCount: total_count
+        }
+
+        return render json: data
       end
 
       on(:invalid) do |reason|

@@ -32,6 +32,6 @@ export default Controller.extend({
     }];
   }),
   table: computed('model', function() {
-   return new Table(this.get('columns'), this.get('model').users, { enableSync: true });
+   return new Table(this.get('columns'), this.get('model'), { enableSync: true });
   })
 });

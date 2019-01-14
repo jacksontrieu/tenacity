@@ -20,8 +20,9 @@ module Commands
                     .order(:first_name, :last_name)
 
         total_count = User.all.count
+        total_pages = @form.page_size.zero? ? 0 : (total_count.to_f / @form.page_size).ceil
 
-        return broadcast(:ok, users, total_count)
+        return broadcast(:ok, users, total_count, total_pages)
       end
     end
   end
