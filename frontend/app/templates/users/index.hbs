@@ -7,6 +7,15 @@
       {{t.body canSelect=false}}
     {{/light-table}}
 
+    <div class="paging-area">
+      <div class="loading-spinner-wrapper">
+        {{loading-spinner visible=isLoading}}
+      </div>
 
+      {{paging-control targetRoute="users"
+                       pageNumber=pageNumber
+                       pageSize=pageSize
+                       totalCount=totalCount}}
+    </div>
   </div>
 </div>

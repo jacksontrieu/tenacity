@@ -2,4 +2,16 @@
   .ember-light-table {
     margin-top: 36px;
   }
+
+  .paging-area {
+    display: flex;
+    margin-top: 36px;
+
+    .loading-spinner-wrapper {
+      flex: 1;
+      margin-top: -10px;
+      margin-right: 24px;
+      text-align: right;
+    }
+  }
 }

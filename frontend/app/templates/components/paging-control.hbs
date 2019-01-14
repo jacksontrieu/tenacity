@@ -1,0 +1,19 @@
+<div class="paging-control-component">
+  {{#if canGoBackward}}
+    {{#link-to targetRoute (query-params pageNumber=previousPageNumber pageSize=pageSize)
+               class="previous-link paging-link styled-link"}}
+      <i class="fas fa-angle-double-left"></i>
+    {{/link-to}}
+  {{/if}}
+
+  <div class="current-page-indicator">
+    Page <span class="current-page-number">{{pageNumber}}</span> of <span class="page-count">{{pageCount}}</span>
+  </div>
+
+  {{#if canGoForward}}
+    {{#link-to targetRoute (query-params pageNumber=nextPageNumber pageSize=pageSize)
+               class="next-link paging-link styled-link"}}
+      <i class="fas fa-angle-double-right"></i>
+    {{/link-to}}
+  {{/if}}
+</div>

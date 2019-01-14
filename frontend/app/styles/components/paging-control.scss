@@ -1,0 +1,21 @@
+@import '../base/colors';
+
+.paging-control-component {
+  .current-page-indicator {
+    color: $dark-blue-grey;
+    display: inline-block;
+    font-weight: 600;
+    margin: 0 12px;
+  }
+
+  .paging-link {
+    color: $logo-primary;
+    display: inline-block;
+    padding: 12px;
+    text-decoration: none;
+
+    &:hover {
+      color: $logo-primary-hover;
+    }
+  }
+}

@@ -3,6 +3,11 @@ import { computed } from '@ember/object';
 import Table from 'ember-light-table';
 
 export default Controller.extend({
+  isLoading: false,
+  queryParams: ['pageNumber', 'pageSize'],
+  pageNumber: 1,
+  pageSize: 25,
+  totalCount: 0,
   columns: computed(function() {
     return [{
       cellComponent: 'cell-edit-icon',
@@ -26,11 +31,6 @@ export default Controller.extend({
       sortable: false
     }];
   }),
-
-  pageNumber: 1,
-  pageSize: 25,
-  totalCount: 0,
-
   table: computed('model', function() {
    return new Table(this.get('columns'), this.get('model').users, { enableSync: true });
   })
