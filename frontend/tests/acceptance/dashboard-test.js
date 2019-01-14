@@ -8,12 +8,16 @@ module('Acceptance | dashboard', function(hooks) {
   setupApplicationTest(hooks);
 
   test('if not logged in visiting /dashboard redirects to root', async function(assert) {
+    assert.expect(1);
+
     await visit('/dashboard');
 
     assert.equal(currentURL(), '/');
   });
 
   test('if logged in visiting /dashboard displays name and role', async function(assert) {
+    assert.expect(3);
+
     await authenticateSession(adminUserSessionHash);
 
     await visit('/dashboard');
@@ -25,6 +29,8 @@ module('Acceptance | dashboard', function(hooks) {
   });
 
   test('if admin user logged in ability to manage all users ability is shown', async function(assert) {
+    assert.expect(4);
+
     await authenticateSession(adminUserSessionHash);
 
     await visit('/dashboard');
@@ -37,6 +43,8 @@ module('Acceptance | dashboard', function(hooks) {
   });
 
   test('if standard user logged in ability to manage all users ability is shown', async function(assert) {
+    assert.expect(4);
+
     await authenticateSession(standardUserSessionHash);
 
     await visit('/dashboard');

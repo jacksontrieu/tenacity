@@ -12,6 +12,11 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
     save: function() {
       const data = this.controller.getProperties('current_password', 'new_password', 'confirm_password');
 
+      if (data.new_password != data.confirm_password) {
+        this.toast.error("The new password doesn't match.");
+        return;
+      }
+
       showWaitCursor(true);
       this.controller.set('isSaving', true);
 

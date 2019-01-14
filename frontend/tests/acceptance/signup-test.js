@@ -6,8 +6,7 @@ import { authenticateSession } from 'ember-simple-auth/test-support';
 import { validLoginResponse } from '../utils/responses/login';
 import { validSignupResponse } from '../utils/responses/signup';
 import { adminUserSessionHash } from '../utils/auth';
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
+import { delay } from '../utils/helpers';
 
 module('Acceptance | signup', function(hooks) {
   setupApplicationTest(hooks);
