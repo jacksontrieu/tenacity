@@ -6,6 +6,7 @@ A basic user management application built with Ember and Rails JSON API.
 
 - [What is Tenacity?](#what-is-tenacity)
 - [Demo](#demo)
+- [Additional Info for Pavel](#additional-info-for-pavel)
 - [Dev Environment Setup](#dev-environment-setup)
   - [Rails configuration](#rails-configuration)
     - [Installing gems](#installing-gems)
@@ -47,6 +48,10 @@ Tenacity application users are split into two roles:
 Here is a working live demo: https://tenacity-jt.herokuapp.com/
 
 Please note that the demo is hosted on a free Heroku dyno so may not be booted the first time you access it ([free Heroku web dyno's automatically sleep after 30 minutes if they have not received web traffic](https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping)). Please allow up to 2 minutes after navigating to the demo for the app to boot.
+
+## Additional Info for Pavel
+
+Note: I have created some issues in the [Issues section of this repo](https://github.com/jacksontrieu/tenacity/issues) that I did not have the time to look at / would be nice to haves in the future.
 
 ## Dev Environment Setup
 
