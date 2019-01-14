@@ -14,7 +14,7 @@ module Commands
         # Check that logged in user has permissions to manage all users.
         return broadcast(:not_permitted) unless @requesting_user.can?(:manage, :all_users)
 
-        users = User.select(:id, :first_name, :last_name, :phone)
+        users = User.select(:id, :email, :first_name, :last_name, :phone)
                     .page(@form.page_number)
                     .per(@form.page_size)
                     .order(:first_name, :last_name)
