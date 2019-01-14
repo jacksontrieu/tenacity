@@ -20,7 +20,7 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
           email: email,
           password: password
         }
-      }
+      };
       const authenticator = 'authenticator:token';
 
       toggleProgress(true, this);

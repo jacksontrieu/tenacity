@@ -29,7 +29,6 @@ const isWeakPasswordError = (err) => {
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   ajax: inject(),
   session: inject('session'),
-  store: inject(),
 
   actions: {
     signup() {
@@ -71,19 +70,19 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
             email: email,
             password: password
           }
-        }
+        };
         const authenticator = 'authenticator:token';
 
         this.get('session').authenticate(authenticator, credentials).then(() => {
           toggleProgress(false, this);
         }).catch(() => {
           toggleProgress(false, this);
-          this.toast.error('We were able to register a new account but could not log in. Please contact support');
+          this.toast.error('We were able to register a new account but could not log in. Please contact support.');
         });
       }).catch((err) => {
         toggleProgress(false, this);
 
-        let errorMessage = 'Could not signup, please try again';
+        let errorMessage = 'Could not signup, please try again.';
 
         if (isDuplicateEmailError(err)) {
           const { email } = this.controller.getProperties('email');

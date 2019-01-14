@@ -11,8 +11,7 @@ export default AjaxService.extend({
   },
 
   session: inject('session'),
-  // trustedHosts: [ENV['TENACITY_API_HOST']],
-  headers: computed('session.authToken', {
+  headers: computed('session.data.authenticated', {
     get() {
       let headers = {};
 
