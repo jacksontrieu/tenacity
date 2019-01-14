@@ -23,7 +23,8 @@ const isWeakPasswordError = (err) => {
          err.payload &&
          err.payload.errors &&
          err.payload.errors.password &&
-         err.payload.errors.password.includes('is too weak');
+         (err.payload.errors.password.includes('Complexity requirement not met') ||
+          (Array.isArray(err.payload.errors.password) && err.payload.errors.password.find(em => em.includes('Complexity requirement not met'))));
 };
 
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
