@@ -40,13 +40,8 @@ class User::RegistrationsController < Devise::RegistrationsController
 
     Commands::Registrations::GetUser.call(form, current_user) do
       on(:ok) do |user|
-        return render json: {
-          id: user.id,
-          email: user.email,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          phone: user.phone
-        }, status: :ok
+        resource = JSONAPI::ResourceSerializer.new(UserResource).serialize_to_hash(UserResource.new(user, nil))
+        return render json: resource, status: :ok
       end
 
       on(:invalid) do |reason|

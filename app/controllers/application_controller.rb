@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
+  include JSONAPI::ActsAsResourceController
 
   respond_to :json
   protected

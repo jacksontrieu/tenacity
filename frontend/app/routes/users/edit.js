@@ -10,7 +10,8 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
 
   model: function() {
    let { id } = this.paramsFor(this.routeName);
-    return this.get('ajax').request(buildApiUrl(endpoints.get_user_details(id)));
+    return this.store.findRecord('user', id);
+    // return this.get('ajax').request(buildApiUrl(endpoints.get_user_details(id)));
   },
   actions: {
     save: function() {

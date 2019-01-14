@@ -54,6 +54,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
   },
   model() {
     const authInfo = this.get('session').data;
-    return this.get('ajax').request(buildApiUrl(endpoints.get_user_details(authInfo.authenticated.id)));
+    return this.store.findRecord('user', authInfo.authenticated.id);
   }
 });
