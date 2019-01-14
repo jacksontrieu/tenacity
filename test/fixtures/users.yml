@@ -3,25 +3,25 @@ admin_user:
   first_name: Admin
   last_name: User
   phone: 0400 000 000
-  encrypted_password: <%= User.new.send(:password_digest, 'testing123$') %>
+  encrypted_password: <%= User.new.send(:password_digest, 'testing123$$') %>
 
 admin_two_user:
   email: admin_two@gmail.com
   first_name: Admin Two
   last_name: User
   phone: 0411 111 111
-  encrypted_password: <%= User.new.send(:password_digest, 'testing123$') %>
+  encrypted_password: <%= User.new.send(:password_digest, 'testing123$$') %>
 
 standard_user:
   email: standard@gmail.com
   first_name: Standard
   last_name: User
   phone: 0422 222 222
-  encrypted_password: <%= User.new.send(:password_digest, 'testing123$') %>
+  encrypted_password: <%= User.new.send(:password_digest, 'testing123$$') %>
 
 standard_two_user:
   email: standard_two@gmail.com
   first_name: Standard Two
   last_name: User
   phone: 0433 333 333
-  encrypted_password: <%= User.new.send(:password_digest, 'testing123$') %>
+  encrypted_password: <%= User.new.send(:password_digest, 'testing123$$') %>

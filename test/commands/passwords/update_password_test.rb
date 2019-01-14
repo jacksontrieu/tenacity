@@ -6,9 +6,9 @@ module Commands
       def setup
         @user = users(:admin_user)
         @form = ::Forms::Passwords::UpdatePasswordForm.from_params(
-          current_password: 'testing123$',
-          new_password: 'another123$',
-          confirm_password: 'another123$'
+          current_password: 'testing123$$',
+          new_password: 'another123$$$',
+          confirm_password: 'another123$$$'
         )
       end
 
@@ -20,8 +20,8 @@ module Commands
         should 'Broadcast :invalid if current password not valid' do
           form = ::Forms::Passwords::UpdatePasswordForm.from_params(
             current_password: '__WRONG_PASSWORD__',
-            new_password: 'another123$',
-            confirm_password: 'another123$'
+            new_password: 'another123$$$',
+            confirm_password: 'another123$$$'
           )
 
           reason = assert_command_result(:invalid, form, @user)
@@ -30,8 +30,8 @@ module Commands
 
         should "Broadcast :invalid if new password doesn't match" do
           form = ::Forms::Passwords::UpdatePasswordForm.from_params(
-            current_password: 'testing123$',
-            new_password: 'another123$',
+            current_password: 'testing123$$',
+            new_password: 'another123$$$',
             confirm_password: '__NOT_MATCHING__'
           )
 
