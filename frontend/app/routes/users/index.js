@@ -5,10 +5,11 @@ import AdminRestrictedRouteMixin from '../../mixins/admin-restricted-route-mixin
 import { inject } from '@ember/service';
 import { buildApiUrl, endpoints } from '../../utils/api';
 
-export default Route.extend(AuthenticatedRouteMixin, AdminRestrictedRouteMixin, NavigationRouteMixin, {
+export default Route.extend(AdminRestrictedRouteMixin, AuthenticatedRouteMixin, NavigationRouteMixin, {
   ajax: inject(),
 
   model() {
+    debugger;
     return this.get('ajax').request(buildApiUrl(endpoints.get_user_list));
   }
 });

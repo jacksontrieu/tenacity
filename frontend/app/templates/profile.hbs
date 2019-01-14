@@ -10,7 +10,7 @@
     {{input value=(mut (get model "first_name"))
             placeholder="First name"
             id=(concat elementId "-first-name")
-            class="form-control medium-length"
+            class="form-control medium-length first-name-input"
             autocomplete="off"
             required="true"
             disabled=isSaving}}
@@ -19,7 +19,7 @@
     {{input value=(mut (get model "last_name"))
             placeholder="Last name"
             id=(concat elementId "-last-name")
-            class="form-control medium-length"
+            class="form-control medium-length last-name-input"
             autocomplete="off"
             required="true"
             disabled=isSaving}}
@@ -28,7 +28,7 @@
     {{input value=(mut (get model "phone"))
             placeholder="Phone"
             id=(concat elementId "-phone")
-            class="form-control medium-length"
+            class="form-control medium-length phone-input"
             autocomplete="off"
             required="true"
             disabled=isSaving}}
@@ -39,12 +39,12 @@
       Change password
     </p>
 
-    <a class="save-button styled-button"
-            data-type="secondary"
-            href="/change-password"
-            disabled={{isSaving}}>
+    {{#link-to "change-password"
+               class="change-password-link styled-button"
+               disabled=isSaving
+               data-type="secondary"}}
       Change password
-    </a>
+    {{/link-to}}
 
     <hr class="styled-separator">
 

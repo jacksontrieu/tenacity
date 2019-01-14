@@ -6,8 +6,14 @@ import { checkUserIsAdmin } from '../utils/auth';
 const AdminRestrictedRouteMixin = Mixin.create({
   session: inject('session'),
 
-  setupController: function(controller, model) {
-    this._super(controller, model);
+  beforeModel(transition) {
+    this._super(...arguments);
+
+    if (transition.isAborted) {
+      // Another mixin already aborted the original transition to this route.
+      // Give that mixin precedence.
+      return;
+    }
 
     const authInfo = this.get('session').data;
     const isUserAdmin = checkUserIsAdmin(authInfo);
