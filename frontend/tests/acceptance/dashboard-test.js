@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { authenticateSession } from 'ember-simple-auth/test-support';
+import { adminUserSessionHash, standardUserSessionHash } from '../utils/auth';
 
 module('Acceptance | dashboard', function(hooks) {
   setupApplicationTest(hooks);
@@ -13,13 +14,7 @@ module('Acceptance | dashboard', function(hooks) {
   });
 
   test('if logged in visiting /dashboard displays name and role', async function(assert) {
-    await authenticateSession({
-      id: 1,
-      email: 'admin@user.com',
-      name: 'Admin User',
-      token: 'THIS_IS_A_TOKEN',
-      role: 'admin_user'
-    });
+    await authenticateSession(adminUserSessionHash);
 
     await visit('/dashboard');
 
@@ -30,13 +25,7 @@ module('Acceptance | dashboard', function(hooks) {
   });
 
   test('if admin user logged in ability to manage all users ability is shown', async function(assert) {
-    await authenticateSession({
-      id: 1,
-      email: 'admin@user.com',
-      name: 'Admin User',
-      token: 'THIS_IS_A_TOKEN',
-      role: 'admin_user'
-    });
+    await authenticateSession(adminUserSessionHash);
 
     await visit('/dashboard');
 
@@ -48,13 +37,7 @@ module('Acceptance | dashboard', function(hooks) {
   });
 
   test('if standard user logged in ability to manage all users ability is shown', async function(assert) {
-    await authenticateSession({
-      id: 1,
-      email: 'standard@user.com',
-      name: 'Standard User',
-      token: 'THIS_IS_A_TOKEN',
-      role: 'standard_user'
-    });
+    await authenticateSession(standardUserSessionHash);
 
     await visit('/dashboard');
 

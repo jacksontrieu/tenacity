@@ -5,6 +5,7 @@ import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { authenticateSession } from 'ember-simple-auth/test-support';
 import { validLoginResponse } from '../utils/responses/login';
 import { validSignupResponse } from '../utils/responses/signup';
+import { adminUserSessionHash } from '../utils/auth';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -121,13 +122,7 @@ module('Acceptance | signup', function(hooks) {
   test ('if already logged in, visiting /signup redirects to /dashboard', async function(assert) {
     assert.expect(1);
 
-    await authenticateSession({
-      id: 1,
-      email: 'admin@user.com',
-      name: 'Admin User',
-      token: 'THIS_IS_A_TOKEN',
-      role: 'admin_user'
-    });
+    await authenticateSession(adminUserSessionHash);
 
     await visit('/signup');
 
