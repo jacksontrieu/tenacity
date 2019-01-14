@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | cell-edit-icon', function(hooks) {
   setupRenderingTest(hooks);
+
   test('it renders', async function(assert) {
     assert.expect(1);
 
