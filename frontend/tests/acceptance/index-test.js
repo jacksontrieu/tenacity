@@ -15,7 +15,7 @@ module('Acceptance | index', function(hooks) {
   });
 
   test('if logged in visiting / redirects to /dashboard', async function(assert) {
-    assert.expect(2);
+    assert.expect(1);
 
     await authenticateSession({
       id: 1,
