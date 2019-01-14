@@ -7,12 +7,16 @@ module('Acceptance | index', function(hooks) {
   setupApplicationTest(hooks);
 
   test('visiting /', async function(assert) {
+    assert.expect(1);
+
     await visit('/');
 
-    assert.equal(currentURL(), '/index');
+    assert.equal(currentURL(), '/');
   });
 
   test('if logged in visiting / redirects to /dashboard', async function(assert) {
+    assert.expect(2);
+
     await authenticateSession({
       id: 1,
       email: 'admin@user.com',
