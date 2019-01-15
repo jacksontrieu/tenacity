@@ -4,9 +4,8 @@ import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { authenticateSession } from 'ember-simple-auth/test-support';
 import { validLoginResponse } from '../utils/responses/login';
-import { validSignupResponse } from '../utils/responses/signup';
-import { getAdminUserResponse } from '../utils/responses/users';
 import { adminUserSessionHash } from '../utils/auth';
+import { generateJsonApiErrors } from '../utils/error-helpers';
 import { delay } from '../utils/helpers';
 
 module('Acceptance | signup', function(hooks) {
@@ -24,11 +23,12 @@ module('Acceptance | signup', function(hooks) {
   test ('after signing up, redirected to /dashboard', async function(assert) {
     assert.expect(1);
 
-    this.server.post('/api/v1/users', validSignupResponse, 200);
+    this.server.post('/api/v1/users', (schema) => {
+      return schema.newSignups.find(10);
+    });
     this.server.post('/api/v1/login', validLoginResponse, 200);
 
     await visit('/signup');
-
     await fillIn('input.email-input', 'admin@user.com');
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
@@ -45,13 +45,15 @@ module('Acceptance | signup', function(hooks) {
     // https://github.com/jacksontrieu/tenacity/commit/866f4438df582bfd4368d13406b0a210e503dae6
     assert.expect(2);
 
-    this.server.post('/api/v1/users', validSignupResponse, 200);
+    this.server.post('/api/v1/users', (schema) => {
+      return schema.newSignups.find(10);
+    });
     this.server.post('/api/v1/login', validLoginResponse, 200);
-    this.server.post('/api/v1/users/', validLoginResponse, 200);
-    this.server.get(`/api/v1/users/${adminUserSessionHash.id}`, getAdminUserResponse, 200);
+    this.server.get(`/api/v1/users/${adminUserSessionHash.id}`, (schema) => {
+      return schema.users.find(1);
+    });
 
     await visit('/signup');
-
     await fillIn('input.email-input', 'admin@user.com');
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
@@ -71,7 +73,6 @@ module('Acceptance | signup', function(hooks) {
     assert.expect(1);
 
     await visit('/signup');
-
     await fillIn('input.email-input', 'admin@user.com');
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
@@ -83,16 +84,13 @@ module('Acceptance | signup', function(hooks) {
   });
 
   test ('weak password shows an error toast and does not redirect', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
-    this.server.post('/api/v1/users', {
-      errors: {
-        password: ["Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character"]
-      }
-    }, 422);
+    const errorMessage = "Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character.";
+    const responseBody = generateJsonApiErrors('password', errorMessage);
+    this.server.post('/api/v1/users', responseBody, 422);
 
     await visit('/signup');
-
     await fillIn('input.email-input', 'weak@password.com');
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
@@ -109,22 +107,19 @@ module('Acceptance | signup', function(hooks) {
       waitCount += 25;
     }
 
-    assert.dom('#toast-container', document).includesText('Password is too weak');
-
+    assert.dom('#toast-container', document).includesText('Could not sign up, please try again');
+    assert.dom('.input-error').includesText(errorMessage);
     assert.equal(currentURL(), '/signup');
   });
 
   test ('duplicate email address shows an error toast and does not redirect', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
-    this.server.post('/api/v1/users', {
-      errors: {
-        email: 'Email duplicate@user.com has already been taken.'
-      }
-    }, 400);
+    const errorMessage = 'Email duplicate@user.com has already been taken.';
+    const responseBody = generateJsonApiErrors('password', errorMessage);
+    this.server.post('/api/v1/users', responseBody, 422);
 
     await visit('/signup');
-
     await fillIn('input.email-input', 'duplicate@user.com');
     await fillIn('input.first-name-input', 'Admin');
     await fillIn('input.last-name-input', 'User');
@@ -141,8 +136,8 @@ module('Acceptance | signup', function(hooks) {
       waitCount += 25;
     }
 
-    assert.dom('#toast-container', document).includesText('has already been taken');
-
+    assert.dom('#toast-container', document).includesText('Could not sign up, please try again');
+    assert.dom('.input-error').includesText(errorMessage);
     assert.equal(currentURL(), '/signup');
   });
 
@@ -150,7 +145,6 @@ module('Acceptance | signup', function(hooks) {
     assert.expect(1);
 
     await authenticateSession(adminUserSessionHash);
-
     await visit('/signup');
 
     assert.equal(currentURL(), '/dashboard');

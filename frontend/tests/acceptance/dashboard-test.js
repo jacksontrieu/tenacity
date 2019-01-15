@@ -19,11 +19,9 @@ module('Acceptance | dashboard', function(hooks) {
     assert.expect(3);
 
     await authenticateSession(adminUserSessionHash);
-
     await visit('/dashboard');
 
     assert.equal(currentURL(), '/dashboard');
-
     assert.equal('Admin User', this.element.querySelector('span.user-name').textContent);
     assert.equal('admin_user', this.element.querySelector('span.user-role-name').textContent);
   });
@@ -32,11 +30,9 @@ module('Acceptance | dashboard', function(hooks) {
     assert.expect(4);
 
     await authenticateSession(adminUserSessionHash);
-
     await visit('/dashboard');
 
     assert.equal(currentURL(), '/dashboard');
-
     assert.ok(this.element.querySelector('a.ability-edit-profile'), 'Edit profile ability shown.');
     assert.ok(this.element.querySelector('a.ability-change-password'), 'Change password ability shown.');
     assert.ok(this.element.querySelector('a.ability-manage-all-users'), 'Manage all users ability shown.');
@@ -46,11 +42,9 @@ module('Acceptance | dashboard', function(hooks) {
     assert.expect(4);
 
     await authenticateSession(standardUserSessionHash);
-
     await visit('/dashboard');
 
     assert.equal(currentURL(), '/dashboard');
-
     assert.ok(this.element.querySelector('a.ability-edit-profile'), 'Edit profile ability shown.');
     assert.ok(this.element.querySelector('a.ability-change-password'), 'Change password ability shown.');
     assert.notOk(this.element.querySelector('a.ability-manage-all-users'), 'Manage all users ability shown.');

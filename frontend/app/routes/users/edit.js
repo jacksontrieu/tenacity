@@ -3,7 +3,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import NavigationRouteMixin from '../../mixins/navigation-route-mixin';
 import { inject } from '@ember/service';
 import { showWaitCursor } from '../../utils/ui';
-import { buildApiUrl, endpoints } from '../../utils/api';
 
 export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
   ajax: inject(),

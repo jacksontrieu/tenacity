@@ -2,8 +2,7 @@ import Route from '@ember/routing/route';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 import NoNavigationRouteMixin from '../mixins/no-navigation-route-mixin';
 import { inject } from '@ember/service';
-import { buildApiUrl, endpoints } from '../utils/api';
-import { showWaitCursor, toggleProgress } from '../utils/ui';
+import { toggleProgress } from '../utils/ui';
 
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   ajax: inject(),
@@ -29,11 +28,11 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
         const authenticator = 'authenticator:token';
         self.get('session').authenticate(authenticator, credentials).then(() => {
           toggleProgress(false, self);
-        }).catch((err) => {
+        }).catch(() => {
           toggleProgress(false, self);
           self.toast.error('We were able to register a new account but could not log in. Please contact support.');
         });
-      }).catch((err) => {
+      }).catch(() => {
         toggleProgress(false, self);
 
         let errorMessage = 'Could not sign up, please try again';

@@ -16,7 +16,7 @@ export default Component.extend({
       }).then(() => {
         showWaitCursor(false);
         this.get('session').invalidate();
-      }).catch((err) => {
+      }).catch(() => {
         showWaitCursor(false);
       });
     }

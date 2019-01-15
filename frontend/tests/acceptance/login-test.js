@@ -24,7 +24,6 @@ module('Acceptance | login', function(hooks) {
     this.server.post('/api/v1/login', validLoginResponse, 200);
 
     await visit('/login');
-
     await fillIn('input.email-input', 'admin@user.com');
     await fillIn('input.password-input', 'testing123$');
     await click('button.login-button');
@@ -38,7 +37,6 @@ module('Acceptance | login', function(hooks) {
     this.server.post('/api/v1/login', {}, 401);
 
     await visit('/login');
-
     await fillIn('input.email-input', 'invalid@user.com');
     await fillIn('input.password-input', 'testing123$');
     await click('button.login-button');
@@ -50,7 +48,6 @@ module('Acceptance | login', function(hooks) {
     assert.expect(1);
 
     await authenticateSession(adminUserSessionHash);
-
     await visit('/login');
 
     assert.equal(currentURL(), '/dashboard');

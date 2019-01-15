@@ -14,7 +14,11 @@ export function initialize() {
     else if (message.indexOf('You called <tenacity-client@component:lt-body') > -1 &&
              message.indexOf('.sendAction("onRowClick")')) {
       return;
-    } else {
+    }
+    else if (message.indexOf('`new A()` has been deprecated') > -1) {
+      return;
+    }
+    else {
       next(message, options);
     }
   });

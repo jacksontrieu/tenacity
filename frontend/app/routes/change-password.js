@@ -3,7 +3,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import NavigationRouteMixin from '../mixins/navigation-route-mixin';
 import { inject } from '@ember/service';
 import { showWaitCursor } from '../utils/ui';
-import { buildApiUrl, endpoints } from '../utils/api';
 
 export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
   ajax: inject(),
@@ -61,6 +60,8 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
     const authInfo = this.get('session').data;
     const loggedInUserId = authInfo.authenticated.id;
 
+    // Fake a 'saved' password model so that a PATCH/PUT request will be made
+    // when we update the model & call model.save() in the save() action.
     this.store.push({
       "data": {
         "id": loggedInUserId.toString(),
