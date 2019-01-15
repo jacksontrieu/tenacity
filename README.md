@@ -27,13 +27,15 @@ Tenacity is a basic user management application built with Ember and Rails JSON 
 
 ![Tenacity preview](https://user-images.githubusercontent.com/5061912/51108133-35723d00-1845-11e9-9220-8dd427ff1b2f.png)
 
-Uses the following libraries to provide secure authentication:
+Tenacity uses the following libraries to provide secure authentication:
 - [devise](https://github.com/plataformatec/devise)
 - [devise-jwt](https://github.com/waiting-for-dev/devise-jwt)
 - [cancancan](https://github.com/CanCanCommunity/cancancan)
 - [rolify](https://github.com/RolifyCommunity/rolify)
 
-The Ember front-end app communicates with Rails JSON API via [JWT tokens](https://jwt.io/).
+The Ember front-end app communicates with the Rails API via [JWT tokens](https://jwt.io/).
+
+Rails API routes are formatted to adhere to the [JSON:API spec](https://jsonapi.org/).
 
 Tenacity application users are split into two roles:
 
