@@ -21,6 +21,7 @@ A basic user management application built with Ember and Rails JSON API.
 - [Tests](#demo)
   - [Rails](#rails)
   - [Ember](#ember)
+  - [Manual User Acceptance Tests](#manual-user-acceptance-tests)
 
 ## What is Tenacity?
 
@@ -55,6 +56,7 @@ Tenacity is built with "production quality" in mind:
 - Uses popular, strong, maintained security libraries (devise, cancancan, rolify) for authentication
 - Code written using best practices & SOLID principles (e.g. Service Object pattern in backend code via [Rectify gem](https://github.com/andypike/rectify))
 - Comprehensive README.md to allow other developers to get setup & contribute fast
+- [Manual user acceptance testing](https://docs.google.com/spreadsheets/d/1NZEqmQ3b0-LZ19G5CBRA3p2HfWB_4aPAUdKUcPMMQ3Q/edit?usp=sharing) conducted locally before release & after prod deployment
 
 ## Demo
 Here is a working live demo: https://infinite-garden-57955.herokuapp.com/
@@ -175,3 +177,6 @@ In the `/frontend` directory, run the following command:
 ```
 ember test
 ```
+
+### Manual User Acceptance Tests
+Here is a Google Sheet containing a list of [Manual User Acceptance Test Cases](https://docs.google.com/spreadsheets/d/1NZEqmQ3b0-LZ19G5CBRA3p2HfWB_4aPAUdKUcPMMQ3Q/edit?usp=sharing)
