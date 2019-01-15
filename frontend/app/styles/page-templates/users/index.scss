@@ -1,12 +1,22 @@
 .users-index-template {
-  .ember-light-table {
-    margin-top: 36px;
+  .table-wrapper {
+    @media (max-width: 768px) {
+      overflow-y: auto;
 
-    td.lt-cell {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding-right: 16px;
+      .ember-light-table {
+        min-width: 700px;
+      }
+    }
+
+    .ember-light-table {
+      margin-top: 36px;
+
+      td.lt-cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 16px;
+      }
     }
   }
 

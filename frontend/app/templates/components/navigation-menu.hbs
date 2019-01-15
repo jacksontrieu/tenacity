@@ -1,26 +1,25 @@
 <div class="navigation-menu-component">
   <img src="/assets/images/navigation menu logo.png"
        class="nav-logo"
-       alt="Tenacity logo"
-       height="80">
+       alt="Tenacity logo">
   <nav class="navigation-menu">
     <ul>
       <li class="nav-item">
-        <div>{{#link-to "dashboard" class="dashboard-nav-item"}}<span><i class="fas fa-tachometer-alt"></i>Dashboard</span>{{/link-to}}</div>
+        <div>{{#link-to "dashboard" class="dashboard-nav-item"}}<span><i class="fas fa-tachometer-alt"></i><span class="nav-item-text">Dashboard</span></span>{{/link-to}}</div>
       </li>
 
       <li class="nav-item">
-        <div>{{#link-to "profile" class="profile-nav-item"}}<span><i class="fas fa-user-circle"></i>Profile</span>{{/link-to}}</div>
+        <div>{{#link-to "profile" class="profile-nav-item"}}<span><i class="fas fa-user-circle"></i><span class="nav-item-text">Profile</span></span>{{/link-to}}</div>
       </li>
 
       {{#if showAdminNavigationItems}}
         <li class="nav-item">
-          <div>{{#link-to "users" class="users-nav-item"}}<span><i class="fas fa-users"></i>Manage Users</span>{{/link-to}}</div>
+          <div>{{#link-to "users" class="users-nav-item"}}<span><i class="fas fa-users"></i><span class="nav-item-text">Manage Users</span></span>{{/link-to}}</div>
         </li>
       {{/if}}
 
       <li class="nav-item">
-        <div><a href="#" {{action "logout"}} class="logout-button logout-nav-item"><span><i class="fas fa-sign-out-alt"></i>Logout</span></a></div>
+        <div><a href="#" {{action "logout"}} class="logout-button logout-nav-item"><span><i class="fas fa-sign-out-alt"></i><span class="nav-item-text">Logout</span></span></a></div>
       </li>
     </ul>
   </nav>

@@ -2,10 +2,12 @@
   <div class="standard-container">
     <h2 class="container-title">Manage Users</h2>
 
-    {{#light-table table as |t|}}
-      {{t.head}}
-      {{t.body canSelect=false}}
-    {{/light-table}}
+    <div class="table-wrapper">
+      {{#light-table table as |t|}}
+        {{t.head}}
+        {{t.body canSelect=false}}
+      {{/light-table}}
+    </div>
 
     <div class="paging-area">
       <div class="loading-spinner-wrapper">

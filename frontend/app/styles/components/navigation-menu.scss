@@ -64,5 +64,17 @@ body.users a.users-nav-item {
         }
       }
     }
+
+    @media (max-width: 768px) {
+      ul {
+        li {
+          padding: 4px 8px;
+
+          .nav-item-text {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }

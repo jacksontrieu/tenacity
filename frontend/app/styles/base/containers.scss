@@ -6,6 +6,15 @@
     box-sizing: border-box;
     margin: 32px auto;
     width: 500px;
+
+    @media only screen and (max-width: 768px) {
+      margin: 16px;
+      width: calc(100% - 32px);
+
+      .logo-image {
+        width: calc(100% - 24px);
+      }
+    }
   }
 }
 

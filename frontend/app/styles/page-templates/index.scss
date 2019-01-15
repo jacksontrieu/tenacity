@@ -10,7 +10,9 @@ body.application.root-index {
 
     .logo-image {
       display: block;
-      margin: 0 auto 24px;
+      height: auto;
+      margin: 0 12px 24px;
+      max-width: calc(100% - 24px);
     }
 
     .choice-buttons {
