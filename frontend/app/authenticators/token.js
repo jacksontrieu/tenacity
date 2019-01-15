@@ -5,7 +5,7 @@
 import Token from 'ember-simple-auth-token/authenticators/token';
 import fetch from 'fetch';
 import { assign } from '@ember/polyfills';
-import { Promise, resolve } from 'rsvp';
+import { Promise } from 'rsvp';
 
 const deserializeJsonApiData = (responseBody) => {
   return  {

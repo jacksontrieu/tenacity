@@ -3,7 +3,6 @@ import { click, fillIn, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { authenticateSession } from 'ember-simple-auth/test-support';
-import { validLoginResponse } from '../utils/responses/login';
 import { adminUserSessionHash } from '../utils/auth';
 
 module('Acceptance | login', function(hooks) {
@@ -21,7 +20,9 @@ module('Acceptance | login', function(hooks) {
   test ('after logging in redirected to /dashboard', async function(assert) {
     assert.expect(1);
 
-    this.server.post('/api/v1/login', validLoginResponse, 200);
+    this.server.post('/api/v1/login', (schema) => {
+      return schema.loginResults.find(10);
+    });
 
     await visit('/login');
     await fillIn('input.email-input', 'admin@user.com');

@@ -19,5 +19,12 @@ export default [
     first_name: 'Another',
     last_name: 'User',
     phone: '0400 123 456'
+  },
+  {
+    id: 10,
+    email: 'new@signup.com',
+    first_name: 'New',
+    last_name: 'Signup',
+    phone: '0400 123 456'
   }
 ];

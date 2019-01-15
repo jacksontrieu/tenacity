@@ -3,7 +3,6 @@ import { click, fillIn, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { authenticateSession } from 'ember-simple-auth/test-support';
-import { validLoginResponse } from '../utils/responses/login';
 import { adminUserSessionHash } from '../utils/auth';
 import { generateJsonApiErrors } from '../utils/error-helpers';
 import { delay } from '../utils/helpers';
@@ -26,7 +25,9 @@ module('Acceptance | signup', function(hooks) {
     this.server.post('/api/v1/users', (schema) => {
       return schema.newSignups.find(10);
     });
-    this.server.post('/api/v1/login', validLoginResponse, 200);
+    this.server.post('/api/v1/login', (schema) => {
+      return schema.loginResults.find(10);
+    });
 
     await visit('/signup');
     await fillIn('input.email-input', 'admin@user.com');
@@ -48,9 +49,11 @@ module('Acceptance | signup', function(hooks) {
     this.server.post('/api/v1/users', (schema) => {
       return schema.newSignups.find(10);
     });
-    this.server.post('/api/v1/login', validLoginResponse, 200);
-    this.server.get(`/api/v1/users/${adminUserSessionHash.id}`, (schema) => {
-      return schema.users.find(1);
+    this.server.post('/api/v1/login', (schema) => {
+      return schema.loginResults.find(10);
+    });
+    this.server.get(`/api/v1/users/10`, (schema) => {
+      return schema.users.find(10);
     });
 
     await visit('/signup');
