@@ -5,6 +5,7 @@ A basic user management application built with Ember and Rails JSON API.
 ## Table of Contents
 
 - [What is Tenacity?](#what-is-tenacity)
+  - [Production quality](#production-quality)
 - [Demo](#demo)
 - [Additional Info for Pavel](#additional-info-for-pavel)
 - [Dev Environment Setup](#dev-environment-setup)
@@ -45,6 +46,15 @@ Tenacity application users are split into two roles:
 | Change own password     |       x       |      x     |
 | View list of all users  |               |      x     |
 | Edit any user's profile |               |      x     |
+
+### Production quality
+Tenacity is built with "production quality" in mind:
+- Comprehensive test suite for both frontend and backend code
+- Attention to user experience (e.g. animated loading states, client side error handling, list pagination, long text truncated on table cells)
+- Optimised SQL payloads (e.g. SELECT statements limited to columns used in app, indexes on columns appearing in ORDER BY)
+- Uses popular, strong, maintained security libraries (devise, cancancan, rolify) for authentication
+- Code written using best practices & SOLID principles (e.g. Service Object pattern in backend code via [Rectify gem](https://github.com/andypike/rectify))
+- Comprehensive README.md to allow other developers to get setup & contribute fast
 
 ## Demo
 Here is a working live demo: https://infinite-garden-57955.herokuapp.com/
