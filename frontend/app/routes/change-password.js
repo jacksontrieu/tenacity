@@ -22,15 +22,24 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
       this.store.findRecord('password', loggedInUserId).then(function(password) {
         if (password.new_password != password.confirm_password) {
           self.toast.error("The new password doesn't match.");
+          self.controller.set('isSaving', false);
+          showWaitCursor(false);
           return;
         }
 
         password.save().then(() => {
+          // Clear the password model from the Ember data store to prevent
+          // security issues.
+          self.store.unloadAll('password');
+
           showWaitCursor(false);
+
           self.transitionTo('dashboard');
           self.toast.success('Your password was changed successfully');
         }).catch((err) => {
           self.controller.set('isSaving', false);
+
+          showWaitCursor(false);
 
           let errorMessage = 'Could not change password, please try again.';
           if (err.payload && err.payload.error) {
@@ -43,46 +52,12 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
           self.toast.error(errorMessage);
         });
       });
-
-
-
-
-      // const data = this.controller.getProperties('current_password', 'new_password', 'confirm_password');
-
-      // if (data.new_password != data.confirm_password) {
-      //   this.toast.error("The new password doesn't match.");
-      //   return;
-      // }
-
-      // showWaitCursor(true);
-      // this.controller.set('isSaving', true);
-
-      // this.get('ajax').request(buildApiUrl(endpoints.update_password), {
-      //   contentType: 'application/json',
-      //   method: 'PUT',
-      //   data: data
-      // }).then(() => {
-      //   showWaitCursor(false);
-      //   this.transitionTo('dashboard');
-      //   this.toast.success('Your password was changed successfully');
-      // }).catch((err) => {
-      //   showWaitCursor(false);
-      //   this.controller.set('isSaving', false);
-
-      //   let errorMessage = 'Could not change password, please try again.';
-      //   if (err.payload && err.payload.error) {
-      //     errorMessage = err.payload.error;
-      //   }
-      //   else if (err.payload && err.payload.message) {
-      //     errorMessage = err.payload.message;
-      //   }
-
-      //   this.toast.error(errorMessage);
-      // });
     }
   },
 
   model() {
+    this.store.unloadAll('password');
+
     const authInfo = this.get('session').data;
     const loggedInUserId = authInfo.authenticated.id;
 
@@ -95,9 +70,9 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         },
         "attributes": {
           "id": "1",
-          "current_password": "testing123$",
-          "new_password": "testing123$",
-          "confirm_password": "testing123$"
+          "current_password": "",
+          "new_password": "",
+          "confirm_password": ""
         }
       }
     });

@@ -1,5 +1,13 @@
 @import 'colors';
 
+  .input-error {
+    color: $error-red;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
 .error-message-text {
   color: $error-red;
   display: block;

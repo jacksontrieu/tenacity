@@ -6,32 +6,53 @@
       Basic Settings
     </p>
 
-    <label for={{concat elementId "-first-name"}} class="input-label">First Name</label>
-    {{input value=(mut (get model "first_name"))
-            placeholder="First name"
-            id=(concat elementId "-first-name")
-            class="form-control medium-length first-name-input"
-            autocomplete="off"
-            required="true"
-            disabled=isSaving}}
+    <div class="input-spacer">
+      <label for={{concat elementId "-first-name"}} class="input-label">First Name</label>
 
-    <label for={{concat elementId "-last-name"}} class="input-label">Last Name</label>
-    {{input value=(mut (get model "last_name"))
-            placeholder="Last name"
-            id=(concat elementId "-last-name")
-            class="form-control medium-length last-name-input"
-            autocomplete="off"
-            required="true"
-            disabled=isSaving}}
+      {{input value=(mut (get model "first_name"))
+              placeholder="First name"
+              id=(concat elementId "-first-name")
+              class="form-control medium-length first-name-input"
+              autocomplete="off"
+              required="true"
+              disabled=isSaving}}
 
-    <label for={{concat elementId "-phone"}} class="input-label">Phone</label>
-    {{input value=(mut (get model "phone"))
-            placeholder="Phone"
-            id=(concat elementId "-phone")
-            class="form-control medium-length phone-input"
-            autocomplete="off"
-            required="true"
-            disabled=isSaving}}
+      {{#each model.errors.first_name as |error|}}
+        <div class="input-error">First name {{error.message}}</div>
+      {{/each}}
+    </div>
+
+    <div class="input-spacer">
+      <label for={{concat elementId "-last-name"}} class="input-label">Last Name</label>
+
+      {{input value=(mut (get model "last_name"))
+              placeholder="Last name"
+              id=(concat elementId "-last-name")
+              class="form-control medium-length last-name-input"
+              autocomplete="off"
+              required="true"
+              disabled=isSaving}}
+
+      {{#each model.errors.last_name as |error|}}
+        <div class="input-error">Last name {{error.message}}</div>
+      {{/each}}
+    </div>
+
+    <div class="input-spacer">
+      <label for={{concat elementId "-phone"}} class="input-label">Phone</label>
+
+      {{input value=(mut (get model "phone"))
+              placeholder="Phone"
+              id=(concat elementId "-phone")
+              class="form-control medium-length phone-input"
+              autocomplete="off"
+              required="true"
+              disabled=isSaving}}
+
+      {{#each model.errors.phone as |error|}}
+        <div class="input-error">Phone {{error.message}}</div>
+      {{/each}}
+    </div>
 
     <hr class="styled-separator">
 

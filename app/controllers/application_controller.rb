@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
+  include JsonApiResponseHelper
 
   respond_to :json
   protected
@@ -16,6 +17,14 @@ class ApplicationController < ActionController::API
       message: message,
       code: code
     }, status: :bad_request
+  end
+
+  def render_active_record_errors(errors)
+    render json: json_apify_ar_errors(errors), status: 422
+  end
+
+  def render_record_not_found
+    render json: {}, status: 422
   end
 
   def render_unauthorized

@@ -17,11 +17,10 @@ class User::PasswordsController < Devise::PasswordsController
         resource = JSONAPI::ResourceSerializer.new(PasswordUpdateResource).serialize_to_hash(PasswordUpdateResource.new(password_update, nil))
 
         return render json: resource
-        # return render json: { success: true }, status: :ok
       end
 
-      on(:invalid) do |reason|
-        return render_bad_request(reason)
+      on(:invalid) do |errors|
+        return render_active_record_errors(errors)
       end
 
       on(:not_permitted) do

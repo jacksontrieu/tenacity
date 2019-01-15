@@ -1,7 +1,6 @@
 module Commands
   module Registrations
     class GetUser < Rectify::Command
-      include ArrayHelper
 
       def initialize(form, requesting_user)
         @form = form
@@ -9,12 +8,12 @@ module Commands
       end
 
       def call
-        return broadcast(:invalid, squash_strings(@form.errors.full_messages)) if @form.invalid?
+        return broadcast(:invalid, @form.errors) if @form.invalid?
 
         requested_user = User.where(id: @form.id)
                              .select(:id, :email, :first_name, :last_name, :phone)
                              .first
-        return broadcast(:invalid, "Could not find user with id #{@form.id}.") if requested_user.nil?
+        return broadcast(:record_not_found, "Could not find user with id #{@form.id}.") if requested_user.nil?
 
         # Check that logged in user has permissions to access the specified
         # user's details.

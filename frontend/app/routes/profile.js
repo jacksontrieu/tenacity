@@ -41,6 +41,8 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
         }).catch(() => {
           self.controller.set('isSaving', false);
 
+          showWaitCursor(false);
+
           let errorMessage = 'Could not update profile, please try again';
           self.toast.error(errorMessage);
         });

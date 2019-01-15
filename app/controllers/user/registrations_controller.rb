@@ -27,8 +27,8 @@ class User::RegistrationsController < Devise::RegistrationsController
         return render json: data
       end
 
-      on(:invalid) do |reason|
-        return render_bad_request(reason)
+      on(:invalid) do |errors|
+        return render_active_record_errors(errors)
       end
 
       on(:not_permitted) do
@@ -47,8 +47,12 @@ class User::RegistrationsController < Devise::RegistrationsController
         return render json: resource, status: :ok
       end
 
-      on(:invalid) do |reason|
-        return render_bad_request(reason)
+      on(:invalid) do |errors|
+        return render_active_record_errors(errors)
+      end
+
+      on(:record_not_found) do
+        return render_record_not_found
       end
 
       on(:not_permitted) do
@@ -73,8 +77,12 @@ class User::RegistrationsController < Devise::RegistrationsController
         return render json: resource, status: :ok
       end
 
-      on(:invalid) do |reason|
-        return render_bad_request(reason)
+      on(:invalid) do |errors|
+        return render_active_record_errors(errors)
+      end
+
+      on(:record_not_found) do
+        return render_record_not_found
       end
 
       on(:not_permitted) do

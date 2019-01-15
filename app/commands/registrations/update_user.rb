@@ -1,18 +1,16 @@
 module Commands
   module Registrations
     class UpdateUser < Rectify::Command
-      include ArrayHelper
-
       def initialize(form, requesting_user)
         @form = form
         @requesting_user = requesting_user
       end
 
       def call
-        return broadcast(:invalid, squash_strings(@form.errors.full_messages)) if @form.invalid?
+        return broadcast(:invalid, @form.errors) if @form.invalid?
 
         user = User.find_by(id: @form.id)
-        return broadcast(:invalid, "Could not find user with id #{@form.id}.") if user.nil?
+        return broadcast(:record_not_found, "Could not find user with id #{@form.id}.") if user.nil?
 
         # Check that logged in user has permissions to update the specified
         # user's details.
@@ -23,7 +21,7 @@ module Commands
         user.phone = @form.phone
         user.save
 
-        return broadcast(:invalid, squash_strings(user.errors.full_messages)) if user.invalid?
+        return broadcast(:invalid, user.errors) if user.invalid?
 
         return broadcast(:ok, user)
       end

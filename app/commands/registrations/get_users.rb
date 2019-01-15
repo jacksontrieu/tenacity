@@ -1,15 +1,13 @@
 module Commands
   module Registrations
     class GetUsers < Rectify::Command
-      include ArrayHelper
-
       def initialize(form, requesting_user)
         @form = form
         @requesting_user = requesting_user
       end
 
       def call
-        return broadcast(:invalid, squash_strings(@form.errors.full_messages)) if @form.invalid?
+        return broadcast(:invalid, @form.errors) if @form.invalid?
 
         # Check that logged in user has permissions to manage all users.
         return broadcast(:not_permitted) unless @requesting_user.can?(:manage, :all_users)
