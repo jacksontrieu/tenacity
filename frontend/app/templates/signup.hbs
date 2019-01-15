@@ -12,7 +12,7 @@
     <h4 class="text-center">Enter your details to sign up for an account</h4>
 
     <form {{action "signup" on="submit"}}>
-      <div class="signup-inputs">
+      <div class="input-spacer-tight ">
         {{input value=email
                 placeholder="Email address"
                 class="form-control email-input"
@@ -20,35 +20,45 @@
                 type="email"
                 required="true"
                 disabled=isSigningUp}}
+      </div>
 
+      <div class="input-spacer-tight ">
         {{input value=first_name
                 placeholder="First name"
                 class="form-control first-name-input"
                 autocomplete="off"
                 required="true"
                 disabled=isSigningUp}}
+      </div>
 
+      <div class="input-spacer-tight ">
         {{input value=last_name
                 placeholder="Last name"
                 class="form-control last-name-input"
                 autocomplete="off"
                 required="true"
                 disabled=isSigningUp}}
+      </div>
 
+      <div class="input-spacer-tight ">
         {{input value=phone
                 placeholder="Phone"
                 class="form-control phone-input"
                 autocomplete="off"
                 required="true"
                 disabled=isSigningUp}}
+      </div>
 
+      <div class="input-spacer-tight ">
         {{input value=password type="password"
                 placeholder="Password"
                 class="form-control password-input"
                 autocomplete="off"
                 required="true"
                 disabled=isSigningUp}}
+      </div>
 
+      <div class="input-spacer-tight ">
         {{input value=confirm_password
                 type="password"
                 placeholder="Confirm password"

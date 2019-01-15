@@ -12,13 +12,15 @@
     <h4 class="text-center">Enter your login details</h4>
 
     <form {{action "authenticate" on="submit"}}>
-      <div class="login-inputs">
+      <div class="input-spacer-tight ">
         {{input value=email
                 placeholder="Email address"
                 class="form-control email-input"
                 autocomplete="off"
                 disabled=isLoggingIn}}
+      </div>
 
+      <div class="input-spacer-tight ">
         {{input value=password
                 type="password"
                 placeholder="Password"
@@ -30,7 +32,7 @@
       <button class="login-button styled-button"
               type="submit"
               disabled={{isLoggingIn}}>
-        Sign in
+        Login
       </button>
     </form>
   </div>

@@ -21,13 +21,13 @@ body.application.login {
       margin: 0 auto 24px;
     }
 
-    .login-inputs {
-      margin: 0 40px 24px;
+    form {
+      padding: 0 40px;
     }
 
     .login-button {
       display: block;
-      margin: 12px auto 0;
+      margin: 24px auto 0;
     }
 
     .login-error {
