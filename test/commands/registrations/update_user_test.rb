@@ -45,7 +45,7 @@ module Commands
           assert_command_result(:invalid, form, @requesting_user)
         end
 
-        should 'Broadcast :invalid if user does not exist' do
+        should 'Broadcast :record_not_found if user does not exist' do
           invalid_user_id = generate_invalid_user_id
 
           form = ::Forms::Registrations::UpdateUserForm.from_params(
@@ -55,9 +55,7 @@ module Commands
             phone: @user_to_update.phone
           )
 
-          reason = assert_command_result(:invalid, form, @requesting_user)
-
-          assert_equal "Could not find user with id #{invalid_user_id}.", reason
+          assert_command_result(:record_not_found, form, @requesting_user)
         end
 
         should 'Broadcast :not_permitted if requesting user does not have permission to update user' do
@@ -81,19 +79,21 @@ module Commands
       def assert_command_result(broadcasted_value, form, requesting_user)
         is_ok = false
         is_invalid = false
-        invalid_reason = nil
+        errors = nil
+        is_record_not_found = false
         is_not_permitted = false
 
         ::Commands::Registrations::UpdateUser.call(form, requesting_user) do
-          on(:ok) do |returned_users|
+          on(:ok) do
             is_ok = true
-            users = returned_users
           end
 
-          on(:invalid) do |reason|
+          on(:invalid) do |returned_errors|
             is_invalid = true
-            invalid_reason = reason
+            errors = returned_errors
           end
+
+          on(:record_not_found) { is_record_not_found = true }
 
           on(:not_permitted) { is_not_permitted = true }
         end
@@ -101,18 +101,27 @@ module Commands
         if broadcasted_value == :ok
           assert is_ok
           assert_not is_invalid
-          assert invalid_reason.blank?
+          assert errors.blank?
+          assert_not is_record_not_found
           assert_not is_not_permitted
         elsif broadcasted_value == :invalid
           assert_not is_ok
           assert is_invalid
-          assert_not invalid_reason.blank?
+          assert_not errors.blank?
+          assert_not is_record_not_found
           assert_not is_not_permitted
-          return invalid_reason
+          return errors
+        elsif broadcasted_value == :record_not_found
+          assert_not is_ok
+          assert_not is_invalid
+          assert errors.blank?
+          assert is_record_not_found
+          assert_not is_not_permitted
         elsif broadcasted_value == :not_permitted
           assert_not is_ok
           assert_not is_invalid
-          assert invalid_reason.blank?
+          assert errors.blank?
+          assert_not is_record_not_found
           assert is_not_permitted
         end
       end

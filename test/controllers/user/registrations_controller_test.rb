@@ -38,7 +38,7 @@ class User::RegistrationsControllerTest < ActionController::TestCase
       assert_response :ok
     end
 
-    should 'Returns :bad_request if page_number param invalid' do
+    should 'Returns 422 if page_number param invalid' do
       logged_in_user = users(:admin_user)
       assert logged_in_user.can?(:manage, :all_users)
       sign_in(logged_in_user)
@@ -49,10 +49,10 @@ class User::RegistrationsControllerTest < ActionController::TestCase
       }
 
       get :index, params: params
-      assert_response :bad_request
+      assert_response 422
     end
 
-    should 'Returns :bad_request if page_size param invalid' do
+    should 'Returns 422 if page_size param invalid' do
       logged_in_user = users(:admin_user)
       assert logged_in_user.can?(:manage, :all_users)
       sign_in(logged_in_user)
@@ -63,7 +63,7 @@ class User::RegistrationsControllerTest < ActionController::TestCase
       }
 
       get :index, params: params
-      assert_response :bad_request
+      assert_response 422
     end
 
     should 'Returns :unauthorized if logged in user cannot manage all users' do
@@ -95,7 +95,7 @@ class User::RegistrationsControllerTest < ActionController::TestCase
       get :show, params: { id: requested_user.id }
 
       assert_response :ok
-      assert_show_body_valid(response.body, requested_user)
+      assert_equal(JSON.parse(response.body)['data']['id'].to_i, requested_user.id)
     end
 
     should 'Returns :ok if logged in user is a standard user requesting data about themselves' do
@@ -108,20 +108,20 @@ class User::RegistrationsControllerTest < ActionController::TestCase
       get :show, params: { id: requested_user.id }
 
       assert_response :ok
-      assert_show_body_valid(response.body, requested_user)
+      assert_equal(JSON.parse(response.body)['data']['id'].to_i, requested_user.id)
     end
 
-    should 'Returns :bad_request if id is less than 1' do
+    should 'Returns 422 if id is less than 1' do
       logged_in_user = users(:standard_user)
 
       sign_in(logged_in_user)
 
       get :show, params: { id: 0 }
 
-      assert_response :bad_request
+      assert_response 422
     end
 
-    should 'Returns :bad_request if id is not a valid user' do
+    should 'Returns 422 if id is not a valid user' do
       logged_in_user = users(:standard_user)
       invalid_user_id = generate_invalid_user_id
 
@@ -129,9 +129,7 @@ class User::RegistrationsControllerTest < ActionController::TestCase
 
       get :show, params: { id: invalid_user_id }
 
-      assert_response :bad_request
-      payload = JSON.parse(response.body)
-      assert_equal "Could not find user with id #{invalid_user_id}.", payload['message']
+      assert_response 422
     end
 
     should 'Returns :unauthorized if logged in user does not cannot access requested user' do
@@ -168,10 +166,13 @@ class User::RegistrationsControllerTest < ActionController::TestCase
 
       put :update, params: {
         id: requested_user.id,
-        user: {
-          first_name: @new_first_name,
-          last_name: @new_last_name,
-          phone: @new_phone
+        "data": {
+          "id": requested_user.id.to_s,
+          "attributes": {
+            "first-name": @new_first_name,
+            "last-name": @new_last_name,
+            "phone": @new_phone
+          }
         }
       }
 
@@ -186,10 +187,13 @@ class User::RegistrationsControllerTest < ActionController::TestCase
 
       put :update, params: {
         id: logged_in_user.id,
-        user: {
-          first_name: @new_first_name,
-          last_name: @new_last_name,
-          phone: @new_phone
+        "data": {
+          "id": logged_in_user.id.to_s,
+          "attributes": {
+            "first-name": @new_first_name,
+            "last-name": @new_last_name,
+            "phone": @new_phone
+          }
         }
       }
 
@@ -197,7 +201,7 @@ class User::RegistrationsControllerTest < ActionController::TestCase
       assert_update_did_update(logged_in_user)
     end
 
-    should 'Returns :bad_request if first name is invalid' do
+    should 'Returns 422 if first name is invalid' do
       logged_in_user = users(:admin_user)
       requested_user = users(:standard_user)
       assert logged_in_user.can_access_user?(requested_user)
@@ -206,32 +210,38 @@ class User::RegistrationsControllerTest < ActionController::TestCase
 
       put :update, params: {
         id: requested_user.id,
-        user: {
-          first_name: 'c' * 151,
-          last_name: @new_last_name,
-          phone: @new_phone
+        "data": {
+          "id": requested_user.id.to_s,
+          "attributes": {
+            "first-name": 'c' * 151,
+            "last-name": @new_last_name,
+            "phone": @new_phone
+          }
         }
       }
 
-      assert_response :bad_request
+      assert_response 422
       assert_update_did_not_update(requested_user)
     end
 
-    should 'Returns :bad_request if requested user id does not exist' do
+    should 'Returns 422 if requested user id does not exist' do
       logged_in_user = users(:admin_user)
 
       sign_in(logged_in_user)
 
       put :update, params: {
         id: generate_invalid_user_id,
-        user: {
-          first_name: @new_first_name,
-          last_name: @new_last_name,
-          phone: @new_phone
+        "data": {
+          "id": generate_invalid_user_id.to_s,
+          "attributes": {
+            "first-name": @new_first_name,
+            "last-name": @new_last_name,
+            "phone": @new_phone
+          }
         }
       }
 
-      assert_response :bad_request
+      assert_response 422
     end
 
     should 'Returns :unauthorized if user is logged in but is not permitted to update requested user' do
@@ -243,10 +253,13 @@ class User::RegistrationsControllerTest < ActionController::TestCase
 
       put :update, params: {
         id: requested_user.id,
-        user: {
-          first_name: @new_first_name,
-          last_name: @new_last_name,
-          phone: @new_phone
+        "data": {
+          "id": requested_user.id.to_s,
+          "attributes": {
+            "first-name": @new_first_name,
+            "last-name": @new_last_name,
+            "phone": @new_phone
+          }
         }
       }
 
@@ -259,10 +272,13 @@ class User::RegistrationsControllerTest < ActionController::TestCase
 
       put :update, params: {
         id: requested_user.id,
-        user: {
-          first_name: @new_first_name,
-          last_name: @new_last_name,
-          phone: @new_phone
+        "data": {
+          "id": requested_user.id.to_s,
+          "attributes": {
+            "first-name": @new_first_name,
+            "last-name": @new_last_name,
+            "phone": @new_phone
+          }
         }
       }
 

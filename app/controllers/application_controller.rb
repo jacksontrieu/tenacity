@@ -12,13 +12,6 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def render_bad_request(message, code = '')
-    render json: {
-      message: message,
-      code: code
-    }, status: :bad_request
-  end
-
   def render_active_record_errors(errors)
     render json: json_apify_ar_errors(errors), status: 422
   end
