@@ -3,29 +3,7 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 import NoNavigationRouteMixin from '../mixins/no-navigation-route-mixin';
 import { inject } from '@ember/service';
 import { buildApiUrl, endpoints } from '../utils/api';
-import { showWaitCursor } from '../utils/ui';
-
-const toggleProgress = (inProgress, context) => {
-  showWaitCursor(inProgress);
-  context.controller.set('isSigningUp', inProgress);
-};
-
-const isDuplicateEmailError = (err) => {
-  return err &&
-         err.payload &&
-         err.payload.errors &&
-         err.payload.errors.email &&
-         err.payload.errors.email.includes('has already been taken');
-};
-
-const isWeakPasswordError = (err) => {
-  return err &&
-         err.payload &&
-         err.payload.errors &&
-         err.payload.errors.password &&
-         (err.payload.errors.password.includes('Complexity requirement not met') ||
-          (Array.isArray(err.payload.errors.password) && err.payload.errors.password.find(em => em.includes('Complexity requirement not met'))));
-};
+import { showWaitCursor, toggleProgress } from '../utils/ui';
 
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   ajax: inject(),
@@ -33,68 +11,40 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
 
   actions: {
     signup() {
-      const {
-        email,
-        password,
-        confirm_password
-      } = this.controller.getProperties(
-        'email',
-        'password',
-        'confirm_password'
-      );
-
-      if (password != confirm_password) {
-        this.toast.error('Passwords do not match.');
-        return;
-      }
-
-      const data = {
-        user: this.controller.getProperties(
-          'email',
-          'first_name',
-          'last_name',
-          'phone',
-          'password',
-          'confirm_password'
-        )
-      };
+      let self = this;
 
       toggleProgress(true, this);
 
-      this.get('ajax').request(buildApiUrl(endpoints.signup), {
-        contentType: 'application/json',
-        method: 'POST',
-        data: data
-      }).then(() => {
+      const model = this.controller.get('model');
+
+      model.save().then(function() {
+        showWaitCursor(false);
+        self.controller.set('isSaving', false);
+
         const credentials = {
           user: {
-            email: email,
-            password: password
+            email: model.email,
+            password: model.password
           }
         };
-        const authenticator = 'authenticator:token';
 
-        this.get('session').authenticate(authenticator, credentials).then(() => {
-          toggleProgress(false, this);
-        }).catch(() => {
-          toggleProgress(false, this);
-          this.toast.error('We were able to register a new account but could not log in. Please contact support.');
+        // Login.
+        const authenticator = 'authenticator:token';
+        self.get('session').authenticate(authenticator, credentials).then(() => {
+          toggleProgress(false, self);
+        }).catch((err) => {
+          toggleProgress(false, self);
+          self.toast.error('We were able to register a new account but could not log in. Please contact support.');
         });
       }).catch((err) => {
-        toggleProgress(false, this);
+        toggleProgress(false, self);
 
-        let errorMessage = 'Could not signup, please try again.';
-
-        if (isDuplicateEmailError(err)) {
-          const { email } = this.controller.getProperties('email');
-          errorMessage = `Email address ${email} has already been taken.`;
-        }
-        else if (isWeakPasswordError(err)) {
-          errorMessage = 'Password is too weak.';
-        }
-
-        this.toast.error(errorMessage);
+        let errorMessage = 'Could not sign up, please try again';
+        self.toast.error(errorMessage);
       });
     }
+  },
+  model() {
+    return this.store.createRecord('new-signup', {});
   }
 });

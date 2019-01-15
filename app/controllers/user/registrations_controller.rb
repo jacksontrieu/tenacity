@@ -61,6 +61,28 @@ class User::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # POST /users
+  def create
+    form = Forms::Registrations::CreateUserForm.from_params(
+      email: params['data']['attributes']['email'],
+      first_name: params['data']['attributes']['first-name'],
+      last_name: params['data']['attributes']['last-name'],
+      phone: params['data']['attributes']['phone'],
+      password: params['data']['attributes']['password']
+    )
+
+    Commands::Registrations::CreateUser.call(form) do
+      on(:ok) do |user|
+        resource = JSONAPI::ResourceSerializer.new(UserResource).serialize_to_hash(NewSignupResource.new(user, nil))
+        return render json: resource, status: :ok
+      end
+
+      on(:invalid) do |errors|
+        return render_active_record_errors(errors)
+      end
+    end
+  end
+
   # PATCH /users/:id
   # PUT /users/:id
   def update

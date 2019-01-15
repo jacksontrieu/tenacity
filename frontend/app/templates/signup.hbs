@@ -12,62 +12,99 @@
     <h4 class="text-center">Enter your details to sign up for an account</h4>
 
     <form {{action "signup" on="submit"}}>
-      <div class="input-spacer-tight ">
-        {{input value=email
-                placeholder="Email address"
+      <label for={{concat elementId "-email"}} class="input-label">Email address</label>
+
+      <div class="input-spacer-tight">
+        {{input value=(mut (get model "email"))
+                id=(concat elementId "-email")
                 class="form-control email-input"
                 autocomplete="off"
                 type="email"
                 required="true"
-                disabled=isSigningUp}}
+                disabled=isSaving}}
+
+        {{#each model.errors.email as |error|}}
+          <div class="input-error">Email address {{error.message}}</div>
+        {{/each}}
       </div>
 
-      <div class="input-spacer-tight ">
-        {{input value=first_name
-                placeholder="First name"
+      <div class="input-spacer-tight">
+        <label for={{concat elementId "-first-name"}} class="input-label">First Name</label>
+
+        {{input value=(mut (get model "first_name"))
+                id=(concat elementId "-first-name")
                 class="form-control first-name-input"
                 autocomplete="off"
                 required="true"
-                disabled=isSigningUp}}
+                disabled=isSaving}}
+
+        {{#each model.errors.first_name as |error|}}
+          <div class="input-error">First name {{error.message}}</div>
+        {{/each}}
       </div>
 
-      <div class="input-spacer-tight ">
-        {{input value=last_name
-                placeholder="Last name"
+      <div class="input-spacer-tight">
+        <label for={{concat elementId "-last-name"}} class="input-label">Last name</label>
+
+        {{input value=(mut (get model "last_name"))
+                id=(concat elementId "-last-name")
                 class="form-control last-name-input"
                 autocomplete="off"
                 required="true"
-                disabled=isSigningUp}}
+                disabled=isSaving}}
+
+        {{#each model.errors.last_name as |error|}}
+          <div class="input-error">Last name {{error.message}}</div>
+        {{/each}}
       </div>
 
       <div class="input-spacer-tight ">
-        {{input value=phone
-                placeholder="Phone"
+      <label for={{concat elementId "-phone"}} class="input-label">Phone</label>
+
+        {{input value=(mut (get model "phone"))
+                id=(concat elementId "-phone")
                 class="form-control phone-input"
                 autocomplete="off"
                 required="true"
-                disabled=isSigningUp}}
+                disabled=isSaving}}
+
+        {{#each model.errors.phone as |error|}}
+          <div class="input-error">Phone {{error.message}}</div>
+        {{/each}}
       </div>
 
       <div class="input-spacer-tight ">
-        {{input value=password type="password"
-                placeholder="Password"
+      <label for={{concat elementId "-password"}} class="input-label">Password</label>
+
+        {{input value=(mut (get model "password"))
+                type="password"
+                id=(concat elementId "-password")
                 class="form-control password-input"
                 autocomplete="off"
                 required="true"
-                disabled=isSigningUp}}
+                disabled=isSaving}}
+
+        {{#each model.errors.password as |error|}}
+          <div class="input-error">Password {{error.message}}</div>
+        {{/each}}
       </div>
 
       <div class="input-spacer-tight ">
+      <label for={{concat elementId "-confirm-password"}} class="input-label">Confirm password</label>
+
         {{input value=confirm_password
                 type="password"
-                placeholder="Confirm password"
+                id=(concat elementId "-confirm-password")
                 class="form-control confirm-password-input"
                 autocomplete="off"
                 required="true"
-                disabled=isSigningUp}}
+                disabled=isSaving}}
 
         {{password-strength-requirement}}
+
+        {{#each model.errors.confirm_password as |error|}}
+          <div class="input-error">Confirm password {{error.message}}</div>
+        {{/each}}
       </div>
 
       <button class="signup-button styled-button" type="submit">Sign up</button>
