@@ -10,8 +10,6 @@ export default Route.extend(AuthenticatedRouteMixin, NavigationRouteMixin, {
 
   actions: {
     save: function() {
-      const authInfo = this.get('session').data;
-
       let self = this;
 
       showWaitCursor(true);

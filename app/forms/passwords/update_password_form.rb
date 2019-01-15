@@ -8,7 +8,7 @@ module Forms
 
       validates :id, presence: true, numericality: { greater_than_or_equal_to: 1 }
       validates :current_password, presence: true
-      validates :new_password, presence: true, maximum: { length: 200 }
+      validates :new_password, presence: true, length: { maximum: 200 }
       validates :confirm_password, presence: true
       validate :password_complexity
 
