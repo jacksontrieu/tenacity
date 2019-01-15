@@ -27,7 +27,7 @@ class User::SessionsController < Devise::SessionsController
   def destroy
     authorization_header = request.headers['Authorization']
 
-    Commands::Sessions::BlacklistJwi.call(authorization_header) do
+    Commands::Sessions::BlacklistJti.call(authorization_header) do
       on(:ok) do
         return render json: {}, status: :ok
       end

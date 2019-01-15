@@ -1,6 +1,6 @@
 module Commands
   module Sessions
-    class BlacklistJwi < Rectify::Command
+    class BlacklistJti < Rectify::Command
       def initialize(authorization_header, jti_decoder = nil)
         @authorization_header = authorization_header
         @jti_decoder = jti_decoder || Decoders::JwiDecoder.new

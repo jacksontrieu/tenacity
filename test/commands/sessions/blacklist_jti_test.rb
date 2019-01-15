@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Commands
   module Sessions
-    class BlacklistJwiTest < ActiveSupport::TestCase
+    class BlacklistJtiTest < ActiveSupport::TestCase
       def setup
         @existing_record = jwt_blacklists(:first_record)
       end
@@ -20,7 +20,7 @@ module Commands
           is_invalid = false
 
           assert_difference -> { JwtBlacklist.all.count }, 1 do
-            ::Commands::Sessions::BlacklistJwi.call('abc', mock_decoder) do
+            ::Commands::Sessions::BlacklistJti.call('abc', mock_decoder) do
               on(:ok) do
                 is_ok = true
               end
@@ -45,7 +45,7 @@ module Commands
           is_invalid = false
 
           assert_difference -> { ::JwtBlacklist.all.count }, 0 do
-            ::Commands::Sessions::BlacklistJwi.call('abc', mock_decoder) do
+            ::Commands::Sessions::BlacklistJti.call('abc', mock_decoder) do
               on(:ok) do
                 is_ok = true
               end
