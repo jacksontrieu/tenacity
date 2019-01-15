@@ -1,26 +1,39 @@
 class User::SessionsController < Devise::SessionsController
   respond_to :json
 
-  before_action :check_user_authenticated, only: %w[destroy]
+  before_action :check_user_authenticated, only: :destroy
 
   # POST /login
   def create
-    self.resource = warden.authenticate!(auth_options)
-    set_flash_message!(:notice, :signed_in)
+    # Note: if we want to use more than just the :database_authenticatable
+    # strategy in Devise we will have to figure out a way to call:
+    # warden.authenticate!(auth_options)
+    # Current we are validating login using the user.valid_password? helper
+    # only, but warden.authenticate! will take care of other strategies like
+    # :confirmable, :lockable, etc.
+
+    email = params['data']['attributes']['email']
+    password = params['data']['attributes']['password']
+    return render json: {}, status: :unauthorized if email.blank? || password.blank?
+
+    user = User.find_by(email: email)
+
+    return render json: {}, status: :unauthorized unless user.present? && user.valid_password?(password)
+
+    self.resource = user
+
     sign_in(resource_name, resource)
 
-    # Cannot use JSON:API spec on this endpoint.
-    # Custom response so that we include the JSON Web Token in the API
-    # response. This is required by the 'ember-simple-auth-token' library we
-    # use, ideally we should extract the token from the 'Authentication'
-    # response header instead.
-    render json: {
+    login_model = Login.new(
       id: resource.id,
       email: resource.email,
       name: resource.name,
       token: current_jwt_token,
       role: resource.highest_role
-    }
+    )
+    json_api_resource = JSONAPI::ResourceSerializer.new(LoginResource).serialize_to_hash(LoginResource.new(login_model, nil))
+
+    return render json: json_api_resource
   end
 
   # DELETE /logout
@@ -38,8 +51,14 @@ class User::SessionsController < Devise::SessionsController
     end
   end
 
-  private
+  protected
 
+  # Override this devise method which is invoked before the 'destroy' action.
+  # Since we authenticate using a JWT token in Authentication header, the
+  # base devise method does not work. Instead, we already call our own method
+  # 'check_user_authenticated' in a before_action filter that  checks the
+  # 'current_user' devise property to see if a user is  signed in before
+  # logging out.
   def verify_signed_out_user
   end
 

@@ -3,6 +3,7 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 import NoNavigationRouteMixin from '../mixins/no-navigation-route-mixin';
 import { inject } from '@ember/service';
 import { toggleProgress } from '../utils/ui';
+import { createLoginPostBody } from '../utils/auth';
 
 export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
   ajax: inject(),
@@ -17,14 +18,8 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
       const model = this.controller.get('model');
 
       model.save().then(function() {
-        const credentials = {
-          user: {
-            email: model.email,
-            password: model.password
-          }
-        };
-
         // Login.
+        const credentials = createLoginPostBody(model.email, model.password)
         const authenticator = 'authenticator:token';
         self.get('session').authenticate(authenticator, credentials).then(() => {
           toggleProgress(false, self);
