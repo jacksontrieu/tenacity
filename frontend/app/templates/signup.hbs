@@ -101,10 +101,6 @@
                 disabled=isSaving}}
 
         {{password-strength-requirement}}
-
-        {{#each model.errors.confirm_password as |error|}}
-          <div class="input-error">Confirm password {{error.message}}</div>
-        {{/each}}
       </div>
 
       <button class="signup-button styled-button" type="submit">Sign up</button>

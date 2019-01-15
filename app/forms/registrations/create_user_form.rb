@@ -8,6 +8,7 @@ module Forms
       attribute :password,  String
 
       validates :email, presence: true, length: { maximum: 150 }
+      validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
       validates :first_name, presence: true, length: { maximum: 150 }
       validates :last_name, presence: true, length: { maximum: 150 }
       validates :phone, presence: true, length: { maximum: 100 }

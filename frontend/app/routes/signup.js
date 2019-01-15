@@ -17,6 +17,12 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
 
       const model = this.controller.get('model');
 
+      if (model.password != this.controller.get('confirm_password')) {
+        toggleProgress(false, self);
+        this.toast.error("Passwords don't match.")
+        return;
+      }
+
       model.save().then(function() {
         // Login.
         const credentials = createLoginPostBody(model.email, model.password)

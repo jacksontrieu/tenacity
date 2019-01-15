@@ -1,6 +1,13 @@
 .users-index-template {
   .ember-light-table {
     margin-top: 36px;
+
+    td.lt-cell {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-right: 16px;
+    }
   }
 
   .paging-area {

@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  isSaving: false
+  isSaving: false,
+  confirm_password: ''
 });

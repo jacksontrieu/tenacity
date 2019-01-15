@@ -68,7 +68,8 @@ class User::RegistrationsController < Devise::RegistrationsController
       first_name: params['data']['attributes']['first-name'],
       last_name: params['data']['attributes']['last-name'],
       phone: params['data']['attributes']['phone'],
-      password: params['data']['attributes']['password']
+      password: params['data']['attributes']['password'],
+      confirm_password: params['data']['attributes']['confirm-password']
     )
 
     Commands::Registrations::CreateUser.call(form) do
