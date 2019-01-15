@@ -78,6 +78,7 @@ end
 
 group :test do
   gem 'shoulda', '~> 3.6.0'
+  gem 'mocha', '~> 1.7.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

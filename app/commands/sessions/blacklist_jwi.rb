@@ -1,28 +1,25 @@
 module Commands
   module Sessions
     class BlacklistJwi < Rectify::Command
-      def initialize(authorization_header)
+      def initialize(authorization_header, jti_decoder = nil)
         @authorization_header = authorization_header
+        @jti_decoder = jti_decoder || Decoders::JwiDecoder.new
       end
 
       def call
         return broadcast(:invalid) if @authorization_header.blank?
 
-        begin
-          base64_claims = Base64.decode64(@authorization_header.split('.')[1])
-          claims = JSON.parse(base64_claims)
-          jti = claims['jti']
+        jti = @jti_decoder.get_claim(@authorization_header)
 
-          unless JWTBlacklist.find_by(jti: jti).present?
-            JWTBlacklist.create!(
-              jti: jti
-            )
-          end
+        return broadcast(:invalid) if jti.blank?
 
-          return broadcast(:ok)
-        rescue
-          return broadcast(:invalid)
+        unless JwtBlacklist.find_by(jti: jti).present?
+          JwtBlacklist.create!(
+            jti: jti
+          )
         end
+
+        return broadcast(:ok)
       end
     end
   end
