@@ -21,6 +21,7 @@
                 autocomplete="off"
                 type="email"
                 required="true"
+                maxlength="150"
                 disabled=isSaving}}
 
         {{#each model.errors.email as |error|}}
@@ -36,6 +37,7 @@
                 class="form-control first-name-input"
                 autocomplete="off"
                 required="true"
+                maxlength="150"
                 disabled=isSaving}}
 
         {{#each model.errors.first_name as |error|}}
@@ -51,6 +53,7 @@
                 class="form-control last-name-input"
                 autocomplete="off"
                 required="true"
+                maxlength="150"
                 disabled=isSaving}}
 
         {{#each model.errors.last_name as |error|}}
@@ -66,6 +69,7 @@
                 class="form-control phone-input"
                 autocomplete="off"
                 required="true"
+                maxlength="100"
                 disabled=isSaving}}
 
         {{#each model.errors.phone as |error|}}
@@ -82,6 +86,7 @@
                 class="form-control password-input"
                 autocomplete="off"
                 required="true"
+                maxlength="200"
                 disabled=isSaving}}
 
         {{#each model.errors.password as |error|}}
@@ -98,6 +103,7 @@
                 class="form-control confirm-password-input"
                 autocomplete="off"
                 required="true"
+                maxlength="200"
                 disabled=isSaving}}
 
         {{password-strength-requirement}}

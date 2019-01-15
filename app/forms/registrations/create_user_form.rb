@@ -12,7 +12,7 @@ module Forms
       validates :first_name, presence: true, length: { maximum: 150 }
       validates :last_name, presence: true, length: { maximum: 150 }
       validates :phone, presence: true, length: { maximum: 100 }
-      validates :password, presence: true
+      validates :password, presence: true, length: { maximum: 200 }
       validate :password_complexity
 
       private
