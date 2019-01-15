@@ -9,6 +9,7 @@ export const endpoints = {
     const requestPageSize = pageSize ? pageSize : 25;
     return `/users?page_number=${requestPageNumber}&page_size=${requestPageSize}`
   },
+  logout: '/logout',
   signup: '/users',
   update_password: '/password',
   update_user: function(id) {

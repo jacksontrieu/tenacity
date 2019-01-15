@@ -18,9 +18,6 @@ export default Route.extend(UnauthenticatedRouteMixin, NoNavigationRouteMixin, {
       const model = this.controller.get('model');
 
       model.save().then(function() {
-        showWaitCursor(false);
-        self.controller.set('isSaving', false);
-
         const credentials = {
           user: {
             email: model.email,
