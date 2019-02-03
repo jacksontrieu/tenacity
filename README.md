@@ -67,7 +67,7 @@ The following two accounts can be used to test the app on Heroku:
 
 | Role          | Email address           | Password    |
 |---------------|-------------------------|-------------|
-| Admin user    | jackson.trieu@gmail.com | testing123$ |
+| Admin user    | admin@user.com          | testing123$ |
 | Standard user | standard@user.com       | testing123$ |
 
 ## Additional Info for Pavel
@@ -130,7 +130,7 @@ This will seed the database with 52 test users. The following two users can be u
 
 | Role          | Email address           | Password    |
 |---------------|-------------------------|-------------|
-| Admin user    | jackson.trieu@gmail.com | testing123$ |
+| Admin user    | admin@user.com          | testing123$ |
 | Standard user | standard@user.com       | testing123$ |
 
 

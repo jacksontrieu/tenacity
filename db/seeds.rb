@@ -2,9 +2,9 @@ require 'faker'
 
 def create_users
   jackson = User.new(
-    email: 'jackson.trieu@gmail.com',
-    first_name: 'Jackson',
-    last_name: 'Trieu',
+    email: 'admin@user.com',
+    first_name: 'Admin',
+    last_name: 'User',
     phone: '0412 345 678'
   )
   jackson.password = 'testing123$'
