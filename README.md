@@ -1,6 +1,6 @@
 # Tenacity
 
-A basic user management application built with Ember and Rails JSON API.
+A basic user management application built with Ember and Rails JSON API. This app was built as an employment test for a Fullstack Software Engineer role at a company that used Ember and Rails.
 
 ## Table of Contents
 
