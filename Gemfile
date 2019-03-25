@@ -25,7 +25,7 @@ gem 'puma', '~> 3.11'
 # gem 'capistrano-rails', group: :development
 
 # Use Devise for authentication.
-gem 'devise', '~> 4.5.0'
+gem 'devise', '~> 4.6.0'
 
 # The Ember front-end will communicate with devise using JSON Web Tokens.
 gem 'devise-jwt', '~> 0.5.8'
